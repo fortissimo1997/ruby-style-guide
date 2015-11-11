@@ -64,8 +64,7 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
 結果としてルールの衝突が発生した場合は、
 そのプロジェクトにおいては、プロジェクト固有のガイドを優先します。
 
-PDFやHTMLのコピーはこのガイドを使って作成できます
-[Transmuter][]。
+このガイドのPDFやHTMLのコピーは[Transmuter][]を使って生成できます。
 
 [RuboCop][]は、
 このスタイルガイドに基づいたコード分析器です。
@@ -74,8 +73,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * [中国語(簡体)](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhCN.md)
 * [中国語(繁体)](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhTW.md)
-* [フランス語](https://github.com/porecreat/ruby-style-guide/blob/master/README-frFR.md)
-* [ドイツ語](https://github.com/arbox/ruby-style-guide/blob/master/README-deDE.md)
+* [フランス語](https://github.com/gauthier-delacroix/ruby-style-guide/blob/master/README-frFR.md)
+* [ドイツ語](https://github.com/arbox/de-ruby-style-guide/blob/master/README-deDE.md)
 * [日本語](https://github.com/fortissimo1997/ruby-style-guide/blob/japanese/README.ja.md)
 * [韓国語](https://github.com/dalzony/ruby-style-guide/blob/master/README-koKR.md)
 * [ポルトガル語](https://github.com/rubensmabueno/ruby-style-guide/blob/master/README-PT-BR.md)
