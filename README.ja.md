@@ -1253,7 +1253,7 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
   # 悪い例
   def with_tmp_dir
     Dir.mktmpdir do |tmp_dir|
-      Dir.chdir(tmp_dir) { |dir| yield dir }  # block just passes arguments
+      Dir.chdir(tmp_dir) { |dir| yield dir }  # 引数を渡しているだけのブロック
     end
   end
 
