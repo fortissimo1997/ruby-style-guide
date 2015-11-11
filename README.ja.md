@@ -858,7 +858,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="no-multiline-if-modifiers"></a>
-  重要な複数行のブロックに`if/unless`修飾子を用いるのは避けましょう。
+  複数行に渡るような些細とは言えない規模のブロックに`if/unless`修飾子を用いるのは避けましょう。
 <sup>[[link](#no-multiline-if-modifiers)]</sup>
 
   ```Ruby
