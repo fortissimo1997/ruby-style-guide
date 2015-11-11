@@ -670,6 +670,48 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
   some_method('w', 'x', 'y') # => 'w, x, y, 2'
   some_method('w', 'x', 'y', 'z') # => 'w, x, y, z'
   ```
+* <a name="parallel-assignment"></a>
+  変数を定義するために多重代入を使うのは避けましょう。
+  多重代入を使っていいのはメソッド戻り値を変数に代入する時、
+  splat演算子とともに使う時、
+  変数の値を相互に入れ替えたい時に限ります。
+  多重代入は代入をそれぞれ別に実施した場合と比べて可読性に劣ります。
+<sup>[[link](#parallel-assignment)]</sup>
+
+  ```Ruby
+  # 悪い例
+  a, b, c, d = 'foo', 'bar', 'baz', 'foobar'
+
+  # 良い例
+  a = 'foo'
+  b = 'bar'
+  c = 'baz'
+  d = 'foobar'
+
+  # 良い例 - 変数の値の入れ替え
+  # この用法は変数に入っている値を相互に入れ替えることができるので
+  # 特例として認められます。
+  a = 'foo'
+  b = 'bar'
+
+  a, b = b, a
+  puts a # => 'bar'
+  puts b # => 'foo'
+
+  # 良い例 - メソッドの戻り値
+  def multi_return
+    [1, 2]
+  end
+
+  first, second = multi_return
+
+  # 良い例 - splatとともに使う場合
+  first, *list = [1,2,3,4]
+
+  hello_array = *"Hello"
+
+  a = *(1..3)
+  ```
 
 * <a name="no-for-loops"></a>
   あなたが使ってはならない理由を正確に知っていなければ、決して`for`を使ってはいけません。
