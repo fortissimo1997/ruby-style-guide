@@ -371,8 +371,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="empty-lines-between-methods"></a>
-  定義式の間には空行をいれ、
-  メソッド内の論理的段落ごとに分割しましょう。
+  メソッド定義式の間には空行をいれ、
+  メソッド同士は論理的なかたまりに分けましょう。
 <sup>[[link](#empty-lines-between-methods)]</sup>
 
   ```Ruby
