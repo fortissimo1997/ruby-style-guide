@@ -928,8 +928,6 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
   document.saved? || document.save!
   ```
 
-  留意しなければならないのは、このルールには例外([条件式中の安全な代入](#safe-assignment-in-condition))があるということです。
-
 * <a name="no-multiline-ternary"></a>
   複数行にまたがる三項演算子`?:`は避けましょう; 代わりに`if/unless`を使いましょう。
 <sup>[[link](#no-multiline-ternary)]</sup>
