@@ -1281,7 +1281,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="double-pipe-for-uninit"></a>
-  変数の初期化には、`||=`を自由に使いましょう。
+  変数がまだ初期化されていないときにだけ初期化したいのであれば、`||=`を使いましょう。
 <sup>[[link](#double-pipe-for-uninit)]</sup>
 
   ```Ruby
