@@ -142,9 +142,9 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
   ```Ruby
   # 悪い例
-  puts 'foobar'; # 余分なセミコロンです。
+  puts 'foobar'; # 余分なセミコロンです
 
-  puts 'foo'; puts 'bar' # ２つの式が１行にあります。
+  puts 'foo'; puts 'bar' # ２つの式が１行にあります
 
   # 良い例
   puts 'foobar'
