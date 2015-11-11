@@ -972,7 +972,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="until-for-negatives"></a>
-  否定形のときは、`while`よりも`until`の方が好まれます。
+  否定形のときは、`while`よりも`until`を使いましょう。
 <sup>[[link](#until-for-negatives)]</sup>
 
   ```Ruby
