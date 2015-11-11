@@ -252,6 +252,11 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
 <sup>[[link](#no-spaces-braces)]</sup>
 
   ```Ruby
+  # bad
+  some( arg ).other
+  [ 1, 2, 3 ].size
+
+  # good
   some(arg).other
   [1, 2, 3].size
   ```
