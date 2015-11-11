@@ -152,7 +152,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   puts 'foo'
   puts 'bar'
 
-  puts 'foo', 'bar' # 特にputsでは適用されます。
+  puts 'foo', 'bar' # putsの場合はこれも可です
   ```
 
 * <a name="single-line-classes"></a>
