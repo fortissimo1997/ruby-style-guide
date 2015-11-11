@@ -968,6 +968,19 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
   end
   ```
 
+* <a name="no-nested-modifiers"></a>
+  `if/unless/while/until` 修飾子をネストして利用しないようにしましょう。
+  可能であれば `&&/||` を使いましょう。
+<sup>[[link](#no-nested-modifiers)]</sup>
+
+  ```Ruby
+  # 悪い例
+  do_something if other_condition if some_condition
+
+  # 良い例
+  do_something if some_condition && other_condition
+  ```
+
 * <a name="unless-for-negatives"></a>
   否定形のときは`if`より`unless`が好まれます。(もしくは`||`構文を使いましょう)。
 <sup>[[link](#unless-for-negatives)]</sup>
