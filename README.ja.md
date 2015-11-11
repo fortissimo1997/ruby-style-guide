@@ -216,6 +216,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   a, b = 1, 2
   1 > 2 ? true : false; puts 'Hi'
   [1, 2, 3].each { |e| puts e }
+  class FooError < StandardError; end
   ```
 
   演算子についてただひとつの例外は、指数演算子です:
