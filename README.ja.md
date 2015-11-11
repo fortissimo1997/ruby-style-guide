@@ -267,7 +267,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="no-space-inside-range-literals"></a>
-  範囲リテラルの内側にスペースは不要です。
+  範囲リテラルの内側にスペースは入れません。
 <sup>[[link](#no-space-inside-range-literals)]</sup>
 
     ```Ruby
