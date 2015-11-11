@@ -1352,8 +1352,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="eql"></a>
-  Do not use `eql?` when using `==` will do. The stricter comparison semantics
-  provided by `eql?` are rarely needed in practice.
+  `==`で用が足りるなら`eql?`は使わないようにしましょう。
+  `eq?`で実現されている、より厳密な等価性が必要になることは、実際には稀です。
 <sup>[[link](#eql)]</sup>
 
   ```Ruby
