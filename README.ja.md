@@ -558,7 +558,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="rdoc-conventions"></a>
-  APIのドキュメントのため、RDocの規約に従いましょう。
+  APIドキュメントを書くなら、RDocとその規約に従いましょう。
   コメント行と`def`の間に空行を入れてはいけません。
 <sup>[[link](#rdoc-conventions)]</sup>
 
