@@ -645,6 +645,32 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
    end
    ```
 
+* <a name="optional-arguments"></a>
+  オプショナル引数は引数リストの最後に定義しましょう。
+  引数リストの先頭にオプショナル引数があるメソッドを呼んだ場合、
+  Rubyの挙動は予測不能です。
+<sup>[[link](#optional-arguments)]</sup>
+
+  ```Ruby
+  # 悪い例
+  def some_method(a = 1, b = 2, c, d)
+    puts "#{a}, #{b}, #{c}, #{d}"
+  end
+
+  some_method('w', 'x') # => '1, 2, w, x'
+  some_method('w', 'x', 'y') # => 'w, 2, x, y'
+  some_method('w', 'x', 'y', 'z') # => 'w, x, y, z'
+
+  # 良い例
+  def some_method(c, d, a = 1, b = 2)
+    puts "#{a}, #{b}, #{c}, #{d}"
+  end
+
+  some_method('w', 'x') # => 'w, x, 1, 2'
+  some_method('w', 'x', 'y') # => 'w, x, y, 2'
+  some_method('w', 'x', 'y', 'z') # => 'w, x, y, z'
+  ```
+
 * <a name="no-for-loops"></a>
   あなたが使ってはならない理由を正確に知っていなければ、決して`for`を使ってはいけません。
   代わりにイテレータが使われるべきです。
