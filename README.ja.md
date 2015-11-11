@@ -716,7 +716,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 * <a name="no-nested-ternary"></a>
   三項演算子の１つの分岐には１つだけ式を入れましょう。
   つまり、三項演算子はネストしてはいけません。
-  このケースでは`if/else`の方がよいです。
+  そのようなケースでは`if/else`の方がよいです。
 <sup>[[link](#no-nested-ternary)]</sup>
 
   ```Ruby
