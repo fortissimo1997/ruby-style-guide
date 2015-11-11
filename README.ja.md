@@ -160,7 +160,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="single-line-classes"></a>
-  本文のないクラスは１行のフォーマットが好まれます。
+  本文のないクラスは１行のフォーマットを用いましょう。
 <sup>[[link](#single-line-classes)]</sup>
 
   ```Ruby
