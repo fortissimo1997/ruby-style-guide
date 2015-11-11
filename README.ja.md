@@ -1236,7 +1236,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="safe-assignment-in-condition"></a>
-  代入部分を`()`で囲まずに、`=`の返り値を条件式に用いてはいけません。
+  代入部分を括弧で囲まずに、`=`の返り値を条件式に用いてはいけません。
   これは、Rubyistの中では *条件式内での安全な代入* としてとても有名です。
 <sup>[[link](#safe-assignment-in-condition)]</sup>
 
