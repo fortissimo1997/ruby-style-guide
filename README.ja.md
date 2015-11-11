@@ -713,6 +713,27 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
   a = *(1..3)
   ```
 
+* <a name="trailing-underscore-variables"></a>
+  多重代入においては不要なアンダースコア変数を後ろに並べないようにしましょう。
+  アンダースコア変数は左辺にsplat変数を定義するときには必要です。
+  その場合、splat変数はアンダースコアではありえないです。
+<sup>[[link]](#trailing-underscore-variables)</sup>
+
+  ```Ruby
+  # 悪い例
+  a, b, _ = *foo
+  a, _, _ = *foo
+  a, *_ = *foo
+
+  # 良い例
+  *a, _ = *foo
+  *a, b, _ = *foo
+  a, = *foo
+  a, b, = *foo
+  a, _b = *foo
+  a, _b, = *foo
+  ```
+
 * <a name="no-for-loops"></a>
   あなたが使ってはならない理由を正確に知っていなければ、決して`for`を使ってはいけません。
   代わりにイテレータが使われるべきです。
