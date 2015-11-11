@@ -701,8 +701,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="ternary-operator"></a>
-  `if/then/else/end`構文よりも三項演算子(`?:`)を好みます。
-  そちらの方がより明快で簡潔です。
+  三項演算子(`?:`)を`if/then/else/end`構文よりも優先的に使いましょう。
+  そちらの方がより明快だし、あきらかに簡潔です。
 <sup>[[link](#ternary-operator)]</sup>
 
   ```Ruby
