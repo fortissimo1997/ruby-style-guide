@@ -1571,6 +1571,18 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
   end
   ```
 
+* <a name="stabby-lambda-with-args"></a>
+  stabby lambdaを定義するときは、引数の周りの括弧は省略しないようにしましょう。
+<sup>[[link](#stabby-lambda-with-args)]</sup>
+
+  ```Ruby
+  # bad
+  l = ->x, y { something(x, y) }
+
+  # good
+  l = ->(x, y) { something(x, y) }
+  ```
+
 * <a name="proc"></a>
   `Proc.new`より`proc`を好みます。
 <sup>[[link](#proc)]</sup>
