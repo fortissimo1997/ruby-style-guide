@@ -1003,7 +1003,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="loop-with-break"></a>
-  後判定ループの場合、`begin/end/until`や`begin/end/while`より、`break`付きの`Kernel#loop`が好まれます。
+  後判定ループの場合、`begin/end/until`や`begin/end/while`より、`break`付きの`Kernel#loop`を使いましょう。
 <sup>[[link](#loop-with-break)]</sup>
 
   ```Ruby
