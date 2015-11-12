@@ -315,7 +315,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="indent-conditional-assignment"></a>
   条件式を変数に代入するときは、
-  その式の通常のアラインメントを維持しましょう。
+  条件分岐のインデントは普段と同じ基準で揃えましょう。
 <sup>[[link](#indent-conditional-assignment)]</sup>
 
   ```Ruby
