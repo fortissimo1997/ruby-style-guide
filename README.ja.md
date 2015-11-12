@@ -702,7 +702,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="ternary-operator"></a>
   三項演算子(`?:`)を`if/then/else/end`構文よりも優先的に使いましょう。
-  そちらの方がより明快だし、あきらかに簡潔です。
+  そちらの方がより一般的だし、あきらかに簡潔です。
 <sup>[[link](#ternary-operator)]</sup>
 
   ```Ruby
