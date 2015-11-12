@@ -1576,11 +1576,23 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
 <sup>[[link](#stabby-lambda-with-args)]</sup>
 
   ```Ruby
-  # bad
+  # 悪い例
   l = ->x, y { something(x, y) }
 
-  # good
+  # 良い例
   l = ->(x, y) { something(x, y) }
+  ```
+
+* <a name="stabby-lambda-no-args"></a>
+  stabby lambdaに引数がないときは、引数のための括弧は省略しましょう。
+<sup>[[link](#stabby-lambda-no-args)]</sup>
+
+  ```Ruby
+  # 悪い例
+  l = ->() { something }
+
+  # 良い例
+  l = -> { something }
   ```
 
 * <a name="proc"></a>
