@@ -1532,8 +1532,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 * <a name="global-stdout"></a>
   `STDOUT/STDERR/STDIN`の代わりに`$stdout/$stderr/$stdin`を用いましょう。
   `STDOUT/STDERR/STDIN`は定数であり、
-  Rubyでの定数は、実際は再割当てできますが(他のストリームへのリダイレクトも可能)、
-  もし再割当てするとインタープリタからの警告が出るでしょう。
+  Rubyでの定数は、実際は再代入できます(つまりリダイレクトに使えます)が、
+  もし実行するとインタープリタからの警告が出ます。
 <sup>[[link](#global-stdout)]</sup>
 
 * <a name="warn"></a>
