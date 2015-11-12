@@ -1467,7 +1467,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="proc"></a>
-  `Proc.new`より`proc`を好みます。
+  `Proc.new`より`proc`を使いましょう。
 <sup>[[link](#proc)]</sup>
 
   ```Ruby
