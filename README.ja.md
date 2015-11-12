@@ -1772,11 +1772,9 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
 
   ```ruby
   # 悪い例
-
   END { puts 'Goodbye!' }
 
   # 良い例
-
   at_exit { puts 'Goodbye!' }
   ```
 
