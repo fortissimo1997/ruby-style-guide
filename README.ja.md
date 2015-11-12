@@ -1535,7 +1535,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#warn)]</sup>
 
 * <a name="sprintf"></a>
-  不可解な`String#%`メソッドより`sprintf`や`format`を好みます。
+  不可解な`String#%`メソッドより`sprintf`や`format`を使いましょう。
 <sup>[[link](#sprintf)]</sup>
 
   ```Ruby
