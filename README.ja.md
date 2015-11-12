@@ -1649,7 +1649,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="no-non-nil-checks"></a>
-  boolean値を扱わない限り、露骨な`nil`でないかの検査は避けましょう。
+  boolean値を扱わない限り、明示的な`nil`でないかの検査は避けましょう。
 <sup>[[link](#no-non-nil-checks)]</sup>
 
   ```Ruby
