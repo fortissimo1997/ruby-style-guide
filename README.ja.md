@@ -2346,7 +2346,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="duck-typing"></a>
-  継承より[ダック・タイピング](http://ja.wikipedia.org/wiki/%E3%83%80%E3%83%83%E3%82%AF%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%94%E3%83%B3%E3%82%B0)が好まれます。
+  継承より[ダック・タイピング](http://ja.wikipedia.org/wiki/%E3%83%80%E3%83%83%E3%82%AF%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%94%E3%83%B3%E3%82%B0)を使いましょう。
 <sup>[[link](#duck-typing)]</sup>
 
   ```Ruby
