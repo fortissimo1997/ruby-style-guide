@@ -2054,23 +2054,23 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
     ```
 
 * <a name="todo"></a>
-  あとで追加されるべき、今はない特徴や機能を書き留めるには`TODO`を使いましょう。
+  あとで追加されるべき、今はない特徴や機能の注釈には`TODO`を使いましょう。
 <sup>[[link](#todo)]</sup>
 
 * <a name="fixme"></a>
-  直す必要がある壊れたコードを書き留めるには`FIXME`を使いましょう。
+  直す必要がある壊れたコードの注釈には`FIXME`を使いましょう。
 <sup>[[link](#fixme)]</sup>
 
 * <a name="optimize"></a>
-  パフォーマンスに問題を及ぼすかもしれない遅い、または非効率なコードを書き留めるには`OPTIMIZE`を使いましょう。
+  パフォーマンスに問題を及ぼすかもしれない遅い、または非効率なコードの注釈には`OPTIMIZE`を使いましょう。
 <sup>[[link](#optimize)]</sup>
 
 * <a name="hack"></a>
-  疑問の残るコードの書き方でコードの臭いを感じた箇所を書き留めるには`HACK`を使いましょう。
+  疑問の残るコードの書き方でコードの臭いを感じた箇所の注釈には`HACK`を使いましょう。
 <sup>[[link](#hack)]</sup>
 
 * <a name="review"></a>
-  意図したとおりに動くか確認する必要がある箇所を書き留めるには`REVIEW`を使いましょう。
+  意図したとおりに動くか確認する必要がある箇所の注釈には`REVIEW`を使いましょう。
   例: `REVIEW: Are we sure this is how the client does X currently?`
 <sup>[[link](#review)]</sup>
 
