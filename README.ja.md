@@ -1958,7 +1958,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#reduce-blocks)]</sup>
 
 * <a name="other-arg"></a>
-  二項演算子を定義するとき、引数は`other`を用いましょう
+  二項演算子を定義するとき、引数名は`other`を用いましょう
   (`<<`と`[]`は意味が違ってくるので、このルールの例外です)。
 <sup>[[link](#other-arg)]</sup>
 
