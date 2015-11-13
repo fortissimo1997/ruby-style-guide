@@ -2188,7 +2188,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="module-function"></a>
   モジュールのインスタンスメソッドをクラスメソッドにしたいときは、
-  `extend self`よりも`module_function`が好まれます。
+  `extend self`よりも`module_function`を使いましょう。
 <sup>[[link](#module-function)]</sup>
 
   ```Ruby
