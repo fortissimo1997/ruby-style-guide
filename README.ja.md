@@ -1948,12 +1948,20 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
     ...
   end
 
+  class XmlSomething
+    ...
+  end
+
   # 良い例
   class SomeClass
     ...
   end
 
   class SomeXML
+    ...
+  end
+
+  class XMLSomething
     ...
   end
   ```
