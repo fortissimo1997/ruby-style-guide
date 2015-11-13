@@ -1735,14 +1735,15 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 * <a name="map-find-select-reduce-size"></a>
   `collect`より`map`、`detect`より`find`、`find_all`より`select`
-  `inject`より`reduce`、`length`より`size`を好みます。
-  これは厳しい要件ではありません;
-  もしエイリアスを用いるほうが可読性が上がるのであれば、
-  使うのもOKです。
-  それらの同韻のメソッドはSmalltalkから継承されており、
-  他の言語ではあまり一般的ではありません。
-  `find_all`よりも`select`が推奨される理由は、
-  `reject`と共に用いた時、その名前が極めて自己説明的だからです。
+  `inject`より`reduce`、`length`より`size`を使いましょう。
+  これは絶対のルールではないです。
+  別名のほうが可読性に優れているなら、
+  そちらを使っていただいて構いません。
+  韻を踏んでいるほうのメソッド名はSmalltalkから引き継いできたもので、
+  他のプログラミング言語でそこまで一般的ではないです。
+  `find_all`よりも`select`が推奨されるのは、
+  `reject`との相性がよいことと、
+  メソッド名から挙動を推察することも容易だからです。
 <sup>[[link](#map-find-select-reduce-size)]</sup>
 
 * <a name="count-vs-size"></a>
