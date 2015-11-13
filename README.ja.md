@@ -1989,8 +1989,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#hash-space)]</sup>
 
 * <a name="english-syntax"></a>
-  １語より長いコメントを活用し、句読点を使いましょう。
-  ピリオドの後に[one space](http://en.wikipedia.org/wiki/Sentence_spacing)を使いましょう。
+  １語より長いコメントは頭語を大文字化してピリオドを打ちましょう。
+  文と文の間にはスペースを[一つだけ](https://en.wikipedia.org/wiki/Sentence_spacing)入れましょう。
 <sup>[[link](#english-syntax)]</sup>
 
 * <a name="no-superfluous-comments"></a>
