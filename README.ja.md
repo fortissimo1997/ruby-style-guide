@@ -2062,7 +2062,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#fixme)]</sup>
 
 * <a name="optimize"></a>
-  パフォーマンスに問題を及ぼすような、遅い、または非効率なコードを書き留めるには`OPTIMIZE`を使いましょう。
+  パフォーマンスに問題を及ぼすかもしれない遅い、または非効率なコードを書き留めるには`OPTIMIZE`を使いましょう。
 <sup>[[link](#optimize)]</sup>
 
 * <a name="hack"></a>
