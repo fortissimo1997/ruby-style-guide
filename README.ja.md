@@ -1777,8 +1777,11 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="reverse-each"></a>
-  `reverse.each`の代わりに`reverse_each`を用いましょう。何故なら、`include Enumerable`なclassはそのために実装を最適化して提供しているであろうからです。
-  classが特別な実装を提供していない最悪のケースでも、`Enumerable`を継承している一般的な実装であれば、`reverse.each`を用いた場合と最低でも同じ実行効率となるでしょう。
+  `reverse.each`の代わりに`reverse_each`を用いましょう。
+  何故なら、`Enumerable`をincludeしているクラスの側で、
+  より効率のよい実装が行われていることがあるからです。
+  最悪、クラスが特殊化を行っていない場合でも、`Enumerable`から継承される一般的な実装は、
+  `reverse.each`を用いた場合と同じ効率です。
 <sup>[[link](#reverse-each)]</sup>
 
   ```Ruby
