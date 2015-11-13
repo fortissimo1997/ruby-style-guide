@@ -2335,13 +2335,13 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
 
 * <a name="liskov"></a>
   クラス階層の設計を行うときは、
-  [リスコフの置換原則](http://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%B9%E3%82%B3%E3%83%95%E3%81%AE%E7%BD%AE%E6%8F%9B%E5%8E%9F%E5%89%87).
+  [リスコフの置換原則](https://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%B9%E3%82%B3%E3%83%95%E3%81%AE%E7%BD%AE%E6%8F%9B%E5%8E%9F%E5%89%87).
   に従いましょう。
 <sup>[[link](#liskov)]</sup>
 
 * <a name="solid-design"></a>
   あなたのクラスを可能な限り
-  [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
+  [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
   に保ちましょう。
 <sup>[[link](#solid-design)]</sup>
 
