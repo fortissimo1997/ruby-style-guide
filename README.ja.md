@@ -1977,7 +1977,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 > -- Steve McConnell
 
 * <a name="no-comments"></a>
-  コードそのものがドキュメントになるような説明的なコードを書いて、このセクションの残りのパートは無視しましょう。本当に！
+  自己説明的なコードを書いて、このセクションの残りのパートは無視しましょう。本当に！
 <sup>[[link](#no-comments)]</sup>
 
 * <a name="english-comments"></a>
