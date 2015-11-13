@@ -2186,32 +2186,35 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
 
   ```Ruby
   class Person
-    # extend や include を最初に行います
+    # extendとincludeを最初に書きます。
     extend SomeModule
     include AnotherModule
 
-    # 定数定義はその次です
+    # 内部クラス
+    CustomErrorKlass = Class.new(StandardError)
+
+    # 次に定数
     SOME_CONSTANT = 20
 
-    # その後ろはアトリビュートマクロです
+    # 次にattribute系マクロ
     attr_reader :name
 
-    # 他のマクロが続きます(もしあれば)
+    # (あれば) それ以外のマクロ
     validates :name
 
-    # public class methods が次に来ます
+    # publicクラスメソッドが続きます
     def self.some_method
     end
 
-    # initializeはclass methodsと他のinstance methodsの間に来ます
+    # initializationはクラスメソッドと他のpublicメソッドの間に
     def initialize
     end
 
-    # 他のpublic instance methods が続きます
+    # 他のpublicメソッドが続きます
     def some_method
     end
 
-    # protected and private methods は後ろの方にまとめます
+    # protectedとprivateのメソッドは最後のあたりにグループ化します
     protected
 
     def some_protected_method
