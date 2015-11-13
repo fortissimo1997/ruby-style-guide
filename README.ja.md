@@ -1749,7 +1749,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 * <a name="count-vs-size"></a>
   `size`の代わりに`count`を用いてはいけません。
   `Array`以外の`Enumerable`オブジェクトでは、
-  サイズを求めるためにコレクション全てをイテレートしてしまいます。
+  `count`を使うと要素数の計算のためにコレクション全体を走査してしまいます。
 <sup>[[link](#count-vs-size)]</sup>
 
   ```Ruby
