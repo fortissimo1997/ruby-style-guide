@@ -1878,8 +1878,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 
 * <a name="one-class-per-file"></a>
-  １つの`class/module`につき、ちょうど１つのファイルを持つことを目指しましょう。
-  ファイル名は`CamelCase`を`snake_case`に置き換えた`class/module`名を用いて命名しましょう。
+  １つのクラス/モジュールにつき、ちょうど１つのファイルを持つことを目指しましょう。
+  ファイル名は`CamelCase`を`snake_case`に置き換えたクラス/モジュール名を用いて命名しましょう。
 <sup>[[link](#one-class-per-file)]</sup>
 
 * <a name="screaming-snake-case"></a>
