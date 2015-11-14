@@ -2429,8 +2429,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="indent-public-private-protected"></a>
   `public`、`protected`、`private`は、適用するメソッド定義と同じインデントにしましょう。
-  可視性を定義する識別子以降のメソッドに適用されることを強調するため、
-  識別子の上下に空行を入れましょう。
+  そして、以降のすべてのメソッド定義に適用されることを強調するために、
+  それらの修飾子の前１行と後１行に空行を入れましょう。
 <sup>[[link](#indent-public-private-protected)]</sup>
 
   ```Ruby
