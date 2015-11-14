@@ -2854,18 +2854,18 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
   # 悪い例
   begin
     # 処理
-  rescue Exception => e
-    # エラー処理
   rescue StandardError => e
+    # エラー処理
+  rescue IOError => e
     # 決して到達しないエラー処理
   end
 
   # 良い例
   begin
     # 処理
-  rescue StandardError => e
+  rescue IOError => e
     # エラー処理
-  rescue Exception => e
+  rescue StandardError => e
     # エラー処理
   end
   ```
