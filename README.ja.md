@@ -2713,7 +2713,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="no-blind-rescues"></a>
   `Exception`を`rescue`するのは避けましょう。
-  これは`exit`のシグナルも捕捉するため、`kill -9`が必要になります。
+  これは`exit`のシグナルも捕捉するため、プロセスを殺すのに`kill -9`が必要になります。
 <sup>[[link](#no-blind-rescues)]</sup>
 
   ```Ruby
