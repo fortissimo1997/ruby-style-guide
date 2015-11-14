@@ -2553,10 +2553,10 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
   end
   ```
 
-* <a name="def-self-singletons"></a>
-  シングルトンメソッドを定義するときは`def self.method`を用いましょう。
+* <a name="def-self-class-methods"></a>
+  クラスメソッドを定義するときは`def self.method`を用いましょう。
   クラス名を繰り返さないので、簡単にリファクタリングできるようになります。
-<sup>[[link](#def-self-singletons)]</sup>
+<sup>[[link](#def-self-class-methods)]</sup>
 
   ```Ruby
   class TestClass
@@ -2570,8 +2570,8 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
       # body omitted
     end
 
-    # たくさんのシングルトンメソッドを定義しなければならない時
-    # この書き方も便利で、許容できます。
+    # たくさんのクラスメソッドを定義しなければならない時
+    # この書き方も便利です。
     class << self
       def first_method
         # body omitted
