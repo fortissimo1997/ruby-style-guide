@@ -2562,8 +2562,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="exception-class-messages"></a>
-  例外インスタンスの代わりに、
-  例外クラスとメッセージが分かれている`fail/raise`が好まれます。
+  `fail/raise`の引数としては例外クラスのインスタンスよりも、
+  例外クラスとメッセージをそれぞれの引数で渡す方を使いましょう。
 <sup>[[link](#exception-class-messages)]</sup>
 
   ```Ruby
