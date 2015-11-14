@@ -2968,10 +2968,10 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```Ruby
   batman = { name: 'Bruce Wayne', is_evil: false }
 
-  # 悪い例 - falseと判定される値が入っていた場合、望んだとおりに動かないかもしれません
+  # 悪い例 - たんに||演算子を使ってしまうと偽値が入っていた時に望まない結果になります
   batman[:is_evil] || true # => true
 
-  # 良い例 - falseと判定される値が入っていても正しく動きます
+  # 良い例 - fetchなら偽値でも正しく動きます
   batman.fetch(:is_evil, true) # => false
   ```
 
