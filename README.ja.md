@@ -2868,7 +2868,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="first-and-last"></a>
   配列の最初や最後にアクセスしたいときは、
-  `[0]`や`[-1]`より`first`や`last`が好まれます。
+  `[0]`や`[-1]`より`first`や`last`を使いましょう。
 <sup>[[link](#first-and-last)]</sup>
 
 * <a name="set-vs-array"></a>
