@@ -2770,7 +2770,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="release-resources"></a>
-  外部リソースの含まれるプログラムでは、`ensure`で開放しましょう
+  プログラム内で確保した外部リソースは、`ensure`で開放しましょう
 <sup>[[link](#release-resources)]</sup>
 
   ```Ruby
