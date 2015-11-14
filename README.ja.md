@@ -1019,8 +1019,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="no-dsl-parens"></a>
-  内部DSL(例えばRake, Rails, RSpec)や、
-  Rubyで「キーワード」と認識されているメソッド(例えば`attr_reader` や`puts`など)や、
+  内部DSL(例えばRake、Rails、RSpec)や、
+  Rubyで「キーワード」と認識されているメソッド(例えば`attr_reader` や`puts`)や、
   アトリビュートにアクセスするメソッドでは、
   引数の周りの`()`を省略しましょう。
   それ以外のすべてのメソッドでは、メソッド呼び出しの時に括弧を付けましょう。
@@ -1841,7 +1841,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="camelcase-classes"></a>
-  クラスやモジュールには`CamelCase`を用いましょう。(HTTP, RFC, XMLのような頭字語は大文字を保ちましょう)。
+  クラスやモジュールには`CamelCase`を用いましょう。(HTTP、RFC、XMLのような頭字語は大文字を保ちましょう)。
 <sup>[[link](#camelcase-classes)]</sup>
 
   ```Ruby
@@ -3589,7 +3589,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 [RuboCop][]は、このガイドに基づいた
 Rubyコードスタイルチェッカーです。
 Rubocopはすでにこのガイドの重要な部分をカバーしており、
-MRI 1.9, MRI 2.0 双方をサポートし、Emacs向けのよいプラグインがあります。
+MRI 1.9、MRI 2.0 双方をサポートし、Emacs向けのよいプラグインがあります。
 
 ### RubyMine
 
