@@ -2788,7 +2788,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="standard-exceptions"></a>
-  新しい例外クラスを導入するより、基本ライブラリの例外クラスを用いることが好まれます。
+  新しい例外クラスを導入するより、基本ライブラリの例外クラスを使いましょう
 <sup>[[link](#standard-exceptions)]</sup>
 
 ## Collections
