@@ -2976,7 +2976,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="use-hash-blocks"></a>
-  デフォルト値として評価されるコードに副作用があったり高価であるとき、`Hash#fetch`では、デフォルト値の代わりにブロックを用いることが好まれます。
+  `Hash#fetch`のデフォルト値は評価するべき式に副作用があったり実行コストが高いときはうまくいかないので、代わりにブロックを使いましょう。
 <sup>[[link](#use-hash-blocks)]</sup>
 
   ```Ruby
@@ -2984,7 +2984,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
   # 悪い例 - デフォルト値が使われると、先に評価してしまいます
   # だから、もし複数回呼ばれると、プログラムが遅くなります
-  batman.fetch(:powers, get_batman_powers) # get_batman_powers は高価な呼び出しです
+  batman.fetch(:powers, get_batman_powers) # get_batman_powers は高コストな呼び出し
 
   # 良い例 - ブロックは後から評価されます。だから、KeyErrorが評価の引き金になります
   batman.fetch(:powers) { get_batman_powers }
