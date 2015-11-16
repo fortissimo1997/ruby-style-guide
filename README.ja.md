@@ -3500,7 +3500,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
     end
   end
 
-  # それでも最も良い選択は、発見できる全てのアトリビュートにdefine_methodすることです
+  # というか、最も良い選択は、発見できる全てのアトリビュートにdefine_methodすることです
   ```
 
 * <a name="prefer-public-send"></a>
