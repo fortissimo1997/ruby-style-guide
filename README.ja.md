@@ -3279,6 +3279,14 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
 <sup>[[link](#concat-strings)]</sup>
 
   ```Ruby
+  # 悪い例
+  html = ''
+  html += '<h1>Page title</h1>'
+
+  paragraphs.each do |paragraph|
+    html += "<p>#{paragraph}</p>"
+  end
+
   # 良く、そして速い例
   html = ''
   html << '<h1>Page title</h1>'
