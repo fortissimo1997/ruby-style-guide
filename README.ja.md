@@ -3477,7 +3477,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#no-method-missing)]</sup>
 
   - [`respond_to_missing?`](http://blog.marc-andre.ca/2010/11/methodmissing-politely.html)も実装されているか確かめましょう
-  - 既知の接頭辞、`find_by_*`のようなものを捕捉しましょう -- 可能な限りアサートさせましょう
+  - 既知の接頭辞、`find_by_*`のようなものだけを捕捉しましょう -- 可能な限りアサートさせましょう
   - 最後に`super`を呼び出しましょう
   - アサートする、特別でないメソッドに移譲しましょう:
 
