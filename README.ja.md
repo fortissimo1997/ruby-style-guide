@@ -3528,7 +3528,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#too-many-params)]</sup>
 
 * <a name="private-global-methods"></a>
-  もし本当に"global"なメソッドが必要な場合は、
+  もし本当にグローバルなメソッドが必要な場合は、
   Kernelに定義し、privateに設定しましょう。
 <sup>[[link](#private-global-methods)]</sup>
 
