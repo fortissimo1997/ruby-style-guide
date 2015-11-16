@@ -3782,9 +3782,9 @@ Rubyのコードスタイルに興味のある全ての人と共に取り組む�
 あなたの手助けに予め感謝します！
 
 また、このプロジェクト(とRubocop)への金銭的な貢献は、
-[gittip](https://www.gittip.com/bbatsov)経由で行うことができます。
+[Gratipay](https://gratipay.com/~bbatsov/)経由で行うことができます。
 
-[![Gittip経由での支援](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/bbatsov)
+[![Gratipay経由での支援](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/~bbatsov/)
 
 ## 貢献するには
 
