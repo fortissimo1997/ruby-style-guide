@@ -3623,8 +3623,61 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
   ```
 
 * <a name="prefer-public-send"></a>
-  `private`/`protected`制約を避けないように、`send`よりも`public_send`を好みます。
+  `private`/`protected`制約を回避しないために、`send`よりも`public_send`を使いましょう。
 <sup>[[link](#prefer-public-send)]</sup>
+
+  ```ruby
+  # OrganizationというActiveModelがあって、Activatableをincludeしている
+  module Activatable
+    extend ActiveSupport::Concern
+
+    included do
+      before_create :create_token
+    end
+
+    private
+
+    def reset_token
+      ...
+    end
+
+    def create_token
+      ...
+    end
+
+    def activate!
+      ...
+    end
+  end
+
+  class Organization < ActiveRecord::Base
+    include Activatable
+  end
+
+  linux_organization = Organization.find(...)
+  # 悪い例 - 可視性を無視している
+  linux_organization.send(:reset_token)
+  # 良い例 - 例外があがる
+  linux_organization.public_send(:reset_token)
+  ```
+
+* <a name="prefer-__send__"></a>
+  `send`は他の既存のメソッドと衝突するかもしれないので、`__send__`を使いましょう。
+<sup>[[link](#prefer-__send__)]</sup>
+
+  ```ruby
+  require 'socket'
+
+  u1 = UDPSocket.new
+  u1.bind('127.0.0.1', 4913)
+  u2 = UDPSocket.new
+  u2.connect('127.0.0.1', 4913)
+  # レシーバーオブジェクトにメッセージが送信されない
+  # かわりに、UDPソケット経由でメッセージが送信されてしまう
+  u2.send :sleep, 0
+  # こちらならたしかにレシーバーオブジェクトにメッセージが送信される
+  u2.__send__ ...
+  ```
 
 ## 雑則
 
