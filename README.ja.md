@@ -3232,12 +3232,12 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#no-regexp-for-plaintext)]</sup>
 
 * <a name="regexp-string-index"></a>
-  単純化のため、文字列の添字に直接正規表現を渡しましょう。
+  文字列の添字に直接正規表現を渡すことで、文字列の構築をシンプルにできます。
 <sup>[[link](#regexp-string-index)]</sup>
 
   ```Ruby
-  match = string[/regexp/]             # get content of matched regexp
-  first_group = string[/text(grp)/, 1] # get content of captured group
+  match = string[/regexp/]             # マッチした内容が得られる
+  first_group = string[/text(grp)/, 1] # キャプチャグループの内容が得られる
   string[/text (grp)/, 1] = 'replace'  # string => 'text replace'
   ```
 
