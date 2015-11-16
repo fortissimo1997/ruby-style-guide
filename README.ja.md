@@ -3338,15 +3338,15 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```Ruby
   # 悪い例 (挿入の必要がありません)
   %(<div class="text">Some text</div>)
-  # should be '<div class="text">Some text</div>'
+  # '<div class="text">Some text</div>' であるべき
 
   # 悪い例 (ダブルクォートがありません)
   %(This is #{quality} style)
-  # should be "This is #{quality} style"
+  # "This is #{quality} style" であるべき
 
   # 悪い例 (複数行です)
   %(<div>\n<span class="big">#{exclamation}</span>\n</div>)
-  # should be a heredoc.
+  # ヒアドキュメントであるべき
 
   # 良い例 (挿入が必要、ダブルクォートがある、そして１行です)
   %(<tr><td class="name">#{name}</td>)
