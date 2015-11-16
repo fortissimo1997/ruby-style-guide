@@ -3445,7 +3445,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="eval-comment-docs"></a>
   文字列挿入型の`class_eval`(または他の`eval`)を用いる時は、
-  挿入されたときのコードをコメントに追加しましょう(Railsでは活用されています)。
+  挿入されたときのコードをコメントに追加しましょう(Railsで使われているプラクティス)。
 <sup>[[link](#eval-comment-docs)]</sup>
 
   ```ruby
