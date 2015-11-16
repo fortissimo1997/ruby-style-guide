@@ -3065,7 +3065,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="string-interpolation"></a>
-  文字列挿入時には、`{}`の内部にスペースを入れるべきではありません。
+  文字列挿入時には、括弧の内部にスペースを入れるべきではありません。
 <sup>[[link](#string-interpolation)]</sup>
 
   ```Ruby
