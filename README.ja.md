@@ -3510,7 +3510,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 ## 雑則
 
 * <a name="always-warn"></a>
-  `ruby -w`で安全なコードを書きましょう。
+  `ruby -w`で実行しても何も警告されないコードを書きましょう。
 <sup>[[link](#always-warn)]</sup>
 
 * <a name="no-optional-hash-params"></a>
