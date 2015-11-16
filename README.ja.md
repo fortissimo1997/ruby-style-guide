@@ -3439,6 +3439,12 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
   `sub`/`gsub`での複雑な置換は、ブロックやハッシュを用いることで実現できます。
 <sup>[[link](#gsub-blocks)]</sup>
 
+  ```Ruby
+  words = 'foo bar'
+  words.sub(/f/, 'f' => 'F') # => 'Foo bar'
+  words.gsub(/\w+/) { |word| word.capitalize } # => 'Foo Bar'
+  ```
+
 ## パーセントリテラル
 
 * <a name="percent-q-shorthand"></a>
