@@ -3568,7 +3568,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#no-param-mutations)]</sup>
 
 * <a name="three-is-the-number-thou-shalt-count"></a>
-  ３段階を超えるネストは避けましょう。
+  ３段階を超えるブロックのネストは避けましょう。
 <sup>[[link](#three-is-the-number-thou-shalt-count)]</sup>
 
 * <a name="be-consistent"></a>
