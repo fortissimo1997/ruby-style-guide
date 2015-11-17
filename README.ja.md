@@ -160,7 +160,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="single-line-classes"></a>
-  本文のないクラスは１行のフォーマットが好まれます。
+  本文のないクラスは１行のフォーマットを用いましょう。
 <sup>[[link](#single-line-classes)]</sup>
 
   ```Ruby
@@ -398,7 +398,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#no-trailing-params-comma)]</sup>
 
   ```Ruby
-  # 悪い例 - 簡単に引数を移動・追加・削除できますが、それでもお奨めできません。
+  # 悪い例 - 簡単に引数を移動・追加・削除できますが、それでもお奨めできません
   some_method(
                size,
                count,
@@ -843,7 +843,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#no-multiline-ternary)]</sup>
 
 * <a name="if-as-a-modifier"></a>
-  本文が１行のときは、`if/unless`修飾子を利用するのが好まれます。
+  本文が１行のときは、`if/unless`修飾子を優先的に使いましょう。
   他の良い代替案としては`&&/||`を使った制御構文があります。
 <sup>[[link](#if-as-a-modifier)]</sup>
 
@@ -879,7 +879,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="unless-for-negatives"></a>
-  否定形のときは`if`より`unless`が好まれます。(もしくは`||`構文を使いましょう)。
+  否定形のときは`if`より`unless`を優先的に使いましょう。(もしくは`||`構文を使いましょう)。
 <sup>[[link](#unless-for-negatives)]</sup>
 
   ```Ruby
@@ -972,7 +972,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="until-for-negatives"></a>
-  否定形のときは、`while`よりも`until`の方が好まれます。
+  否定形のときは、`while`よりも`until`を使いましょう。
 <sup>[[link](#until-for-negatives)]</sup>
 
   ```Ruby
@@ -1003,7 +1003,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="loop-with-break"></a>
-  後判定ループの場合、`begin/end/until`や`begin/end/while`より、`break`付きの`Kernel#loop`が好まれます。
+  後判定ループの場合、`begin/end/until`や`begin/end/while`より、`break`付きの`Kernel#loop`を使いましょう。
 <sup>[[link](#loop-with-break)]</sup>
 
   ```Ruby
@@ -1104,7 +1104,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="single-line-blocks"></a>
-  １行のブロックでは`do...end`より`{...}`の方が好まれます。
+  １行のブロックでは`do...end`より`{...}`を使いましょう。
   複数行のブロックでは`{...}`は避けましょう
   (複数行のメソッドチェーンは常に醜いです)。
   "制御構文"や"メソッド定義"では常に`do...end`を使いましょう
@@ -1236,7 +1236,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="safe-assignment-in-condition"></a>
-  代入部分を`()`で囲まずに、`=`の返り値を条件式に用いてはいけません。
+  代入部分を括弧で囲まずに、`=`の返り値を条件式に用いてはいけません。
   これは、Rubyistの中では *条件式内での安全な代入* としてとても有名です。
 <sup>[[link](#safe-assignment-in-condition)]</sup>
 
@@ -1467,7 +1467,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="proc"></a>
-  `Proc.new`より`proc`を好みます。
+  `Proc.new`より`proc`を使いましょう。
 <sup>[[link](#proc)]</sup>
 
   ```Ruby
@@ -1535,7 +1535,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#warn)]</sup>
 
 * <a name="sprintf"></a>
-  不可解な`String#%`メソッドより`sprintf`や`format`を好みます。
+  不可解な`String#%`メソッドより`sprintf`や`format`を使いましょう。
 <sup>[[link](#sprintf)]</sup>
 
   ```Ruby
@@ -1709,7 +1709,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   end
   ```
 
-  ループ内では条件判定ブロックよりも`next`が好まれます。
+  ループ内では条件判定ブロックよりも`next`を使いましょう。
   ```Ruby
   # 悪い例
   [0, 1, 2, 3].each do |item|
@@ -1726,7 +1726,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 * <a name="map-find-select-reduce-size"></a>
   `collect`より`map`、`detect`より`find`、`find_all`より`select`
-  `inject`より`reduce`、`length`より`size`を好みます。
+  `inject`より`reduce`、`length`より`size`を使いましょう。
   これは厳しい要件ではありません;
   もしエイリアスを用いるほうが可読性が上がるのであれば、
   使うのもOKです。
@@ -2158,8 +2158,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="modules-vs-classes"></a>
-  クラスメソッドしかないクラスはモジュールであることが好まれます。
-  クラスはインスタンスを生成することにのみ意味があります。
+  クラスメソッドしかないクラスよりモジュールを使いましょう。
+  クラスはインスタンスを生成することに意味がある時にのみ使われるべきです。
 <sup>[[link](#modules-vs-classes)]</sup>
 
   ```Ruby
@@ -2188,7 +2188,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="module-function"></a>
   モジュールのインスタンスメソッドをクラスメソッドにしたいときは、
-  `extend self`よりも`module_function`が好まれます。
+  `extend self`よりも`module_function`を使いましょう。
 <sup>[[link](#module-function)]</sup>
 
   ```Ruby
@@ -2346,7 +2346,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="duck-typing"></a>
-  継承より[ダック・タイピング](http://ja.wikipedia.org/wiki/%E3%83%80%E3%83%83%E3%82%AF%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%94%E3%83%B3%E3%82%B0)が好まれます。
+  継承より[ダック・タイピング](http://ja.wikipedia.org/wiki/%E3%83%80%E3%83%83%E3%82%AF%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%94%E3%83%B3%E3%82%B0)を使いましょう。
 <sup>[[link](#duck-typing)]</sup>
 
   ```Ruby
@@ -2407,7 +2407,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
   クラス階層内の全てのクラスを見ることができるように、
   実際にクラス変数を１つ共有してみましょう。
-  クラスインスタンス変数はクラス変数より好まれます。
+  クラス変数よりもクラスのインスタンス変数のほうを使うべきです。
 
 * <a name="visibility"></a>
   意図した使い方に沿って、可視性(`private`、`protected`)を設定しましょう。
@@ -2486,7 +2486,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   end
   ```
 
-  `alias`は`def`のと同じく予約語なので、シンボルや文字列よりもベアワードが好まれます。
+  `alias`は`def`と同じく予約語なので、シンボルや文字列よりも名前そのものを使いましょう。
   言い換えると、`alias :foo :bar`ではなく、`alias foo bar`と書きましょう。
 
   また、Rubyがエイリアスや継承をどのように扱うか注意しましょう。
@@ -2562,8 +2562,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="exception-class-messages"></a>
-  例外インスタンスの代わりに、
-  例外クラスとメッセージが分かれている`fail/raise`が好まれます。
+  `fail/raise`の引数としては例外クラスのインスタンスよりも、
+  例外クラスとメッセージをそれぞれの引数で渡す方を使いましょう。
 <sup>[[link](#exception-class-messages)]</sup>
 
   ```Ruby
@@ -2788,7 +2788,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="standard-exceptions"></a>
-  新しい例外クラスを導入するより、基本ライブラリの例外クラスを用いることが好まれます。
+  新しい例外クラスを導入するより、基本ライブラリの例外クラスを使いましょう
 <sup>[[link](#standard-exceptions)]</sup>
 
 ## Collections
@@ -2809,9 +2809,9 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="percent-w"></a>
-  (空文字列や、文字列内にスペースが入っていない)文字列の配列構文は、
-  `%w`リテラルの方が好まれます。
-  このルールは要素が２つ以上の配列に適用されます。
+  単語(空でなく、スペースを含まない文字列)の配列を生成する時は
+  `%w`リテラルを使いましょう。
+  このルールは配列の要素が２つ以上の場合に限ります。
 <sup>[[link](#percent-w)]</sup>
 
   ```Ruby
@@ -2823,9 +2823,10 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="percent-i"></a>
-  シンボルの配列が必要なときは`%i`が好まれます
-  (Ruby 1.9との互換性の維持が必要で無ければ)。
-  このルールは要素が２つ以上の配列に適用されます。
+  シンボルの配列が必要な時
+  (かつRuby 1.9との互換性を維持しなくていい時)は
+  `%i`リテラルを使いましょう。
+  このルールは配列の要素が２つ以上の場合に限ります。
 <sup>[[link](#percent-i)]</sup>
 
   ```Ruby
@@ -2842,7 +2843,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#no-trailing-array-commas)]</sup>
 
   ```Ruby
-  # 悪い例 - 簡単に要素を移動・追加・削除できますが、それでも好まれません。
+  # 悪い例 - 簡単に要素を移動・追加・削除できますが、それでもお奨めできません
   VALUES = [
              1001,
              2020,
@@ -2867,7 +2868,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="first-and-last"></a>
   配列の最初や最後にアクセスしたいときは、
-  `[0]`や`[-1]`より`first`や`last`が好まれます。
+  `[0]`や`[-1]`より`first`や`last`を使いましょう。
 <sup>[[link](#first-and-last)]</sup>
 
 * <a name="set-vs-array"></a>
@@ -2877,7 +2878,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#set-vs-array)]</sup>
 
 * <a name="symbols-as-keys"></a>
-  ハッシュのキーには文字列よりシンボルが好まれます。
+  ハッシュのキーには文字列よりシンボルを使いましょう。
 <sup>[[link](#symbols-as-keys)]</sup>
 
   ```Ruby
@@ -3038,7 +3039,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 ## 文字列
 
 * <a name="string-interpolation"></a>
-  文字列連結の代わりに文字列挿入や文字列整形を好みます。
+  文字列連結の代わりに文字列挿入や文字列整形を使いましょう
 <sup>[[link](#string-interpolation)]</sup>
 
   ```Ruby
@@ -3072,7 +3073,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#consistent-string-literals)]</sup>
 
   * **(Option A)** 文字列挿入の必要がないときや、`\t`や`\n`｀’｀等の特別な文字がない場合は、
-    シングルクォーテーションが好まれます。
+    シングルクォーテーションを使いましょう。
 
     ```Ruby
     # 悪い例
@@ -3083,7 +3084,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
     ```
 
   * **(Option B)** 文字列中に`"`を含んでいたり、エスケープ文字を抑えたいときでない限り、
-    ダブルクォーテーションが好まれます。
+    ダブルクォーテーションを使いましょう。
 
     ```Ruby
     # 悪い例
@@ -3317,9 +3318,9 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 ## パーセントリテラル
 
 * <a name="percent-q-shorthand"></a>
-  挿入と`"`双方が入る１行の文字列には、
+  文字列挿入と`"`文字の双方が入る１行の文字列には、
   `%()`(`%Q()`の短縮形)を使いましょう。
-  複数行の時はヒアドキュメントを好みます。
+  複数行の時はヒアドキュメントを使いましょう。
 <sup>[[link](#percent-q-shorthand)]</sup>
 
   ```Ruby
@@ -3393,7 +3394,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#percent-s)]</sup>
 
 * <a name="percent-literal-braces"></a>
-  パーセントリテラルの区切り文字は、`%r`を除いて`()`が好まれます。
+  パーセントリテラルの区切り文字は、`%r`を除いて`()`を使うべきです。
   正規表現の中では、`()`は色々なシーンで使われるので、
   正規表現の内容によっては、より使われる機会の少ない`{`のほうが
   良い選択となることがあるかもしれません。
@@ -3429,7 +3430,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   class_eval 'def use_relative_model_naming?; true; end', __FILE__, __LINE__
   ```
 
-  - `define_method`の方が、`class_eval{ def ... }`よりも好まれます。
+  - `define_method`の方が、`class_eval{ def ... }`よりも好ましいです。
 
 * <a name="eval-comment-docs"></a>
   文字列挿入型の`class_eval`(または他の`eval`)を用いる時は、
