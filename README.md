@@ -68,8 +68,8 @@ Translations of the guide are available in the following languages:
 
 * [Chinese Simplified](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhCN.md)
 * [Chinese Traditional](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhTW.md)
-* [French](https://github.com/porecreat/ruby-style-guide/blob/master/README-frFR.md)
-* [German](https://github.com/arbox/ruby-style-guide/blob/master/README-deDE.md)
+* [French](https://github.com/gauthier-delacroix/ruby-style-guide/blob/master/README-frFR.md)
+* [German](https://github.com/arbox/de-ruby-style-guide/blob/master/README-deDE.md)
 * [Japanese](https://github.com/fortissimo1997/ruby-style-guide/blob/japanese/README.ja.md)
 * [Korean](https://github.com/dalzony/ruby-style-guide/blob/master/README-koKR.md)
 * [Portuguese](https://github.com/rubensmabueno/ruby-style-guide/blob/master/README-PT-BR.md)
@@ -248,6 +248,11 @@ Translations of the guide are available in the following languages:
 <sup>[[link](#no-spaces-braces)]</sup>
 
   ```Ruby
+  # bad
+  some( arg ).other
+  [ 1, 2, 3 ].size
+
+  # good
   some(arg).other
   [1, 2, 3].size
   ```
@@ -279,9 +284,8 @@ Translations of the guide are available in the following languages:
     ```
 
 * <a name="indent-when-to-case"></a>
-  Indent `when` as deep as `case`. I know that many would disagree
-  with this one, but it's the style established in both "The Ruby
-  Programming Language" and "Programming Ruby".
+  Indent `when` as deep as `case`. This is the style established in both
+  "The Ruby Programming Language" and "Programming Ruby".
 <sup>[[link](#indent-when-to-case)]</sup>
 
   ```Ruby
@@ -368,7 +372,7 @@ Translations of the guide are available in the following languages:
   ```
 
 * <a name="empty-lines-between-methods"></a>
-  Use empty lines between method definitions and also to break up a method
+  Use empty lines between method definitions and also to break up methods
   into logical paragraphs internally.
 <sup>[[link](#empty-lines-between-methods)]</sup>
 
@@ -635,6 +639,96 @@ Translations of the guide are available in the following languages:
    end
    ```
 
+* <a name="optional-arguments"></a>
+    Define optional arguments at the end of the list of arguments.
+    Ruby has some unexpected results when calling methods that have
+    optional arguments at the front of the list.
+<sup>[[link](#optional-arguments)]</sup>
+
+  ```Ruby
+  # bad
+  def some_method(a = 1, b = 2, c, d)
+    puts "#{a}, #{b}, #{c}, #{d}"
+  end
+
+  some_method('w', 'x') # => '1, 2, w, x'
+  some_method('w', 'x', 'y') # => 'w, 2, x, y'
+  some_method('w', 'x', 'y', 'z') # => 'w, x, y, z'
+
+  # good
+  def some_method(c, d, a = 1, b = 2)
+    puts "#{a}, #{b}, #{c}, #{d}"
+  end
+
+  some_method('w', 'x') # => 'w, x, 1, 2'
+  some_method('w', 'x', 'y') # => 'w, x, y, 2'
+  some_method('w', 'x', 'y', 'z') # => 'w, x, y, z'
+  ```
+
+* <a name="parallel-assignment"></a>
+    Avoid the use of parallel assignment for defining variables. Parallel
+    assignment is allowed when it is the return of a method call, used with
+    the splat operator, or when used to swap variable assignment. Parallel
+    assignment is less readable than separate assignment.
+<sup>[[link](#parallel-assignment)]</sup>
+
+  ```Ruby
+  # bad
+  a, b, c, d = 'foo', 'bar', 'baz', 'foobar'
+
+  # good
+  a = 'foo'
+  b = 'bar'
+  c = 'baz'
+  d = 'foobar'
+
+  # good - swapping variable assignment
+  # Swapping variable assignment is a special case because it will allow you to
+  # swap the values that are assigned to each variable.
+  a = 'foo'
+  b = 'bar'
+
+  a, b = b, a
+  puts a # => 'bar'
+  puts b # => 'foo'
+
+  # good - method return
+  def multi_return
+    [1, 2]
+  end
+
+  first, second = multi_return
+
+  # good - use with splat
+  first, *list = [1,2,3,4]
+
+  hello_array = *"Hello"
+
+  a = *(1..3)
+  ```
+
+* <a name="trailing-underscore-variables"></a>
+  Avoid the use of unnecessary trailing underscore variables during
+  parallel assignment. Trailing underscore variables are necessary
+  when there is a splat variable defined on the left side of the assignment,
+  and the splat variable is not an underscore.
+<sup>[[link]](#trailing-underscore-variables)</sup>
+
+  ```Ruby
+  # bad
+  a, b, _ = *foo
+  a, _, _ = *foo
+  a, *_ = *foo
+
+  # good
+  *a, _ = *foo
+  *a, b, _ = *foo
+  a, = *foo
+  a, b, = *foo
+  a, _b = *foo
+  a, _b, = *foo
+  ```
+
 * <a name="no-for-loops"></a>
     Do not use `for`, unless you know exactly why. Most of the time iterators
     should be used instead. `for` is implemented in terms of `each` (so
@@ -871,6 +965,19 @@ Translations of the guide are available in the following languages:
       # multi-line body omitted
     end
   end
+  ```
+
+* <a name="no-nested-modifiers"></a>
+  Avoid nested modifier `if/unless/while/until` usage. Favor `&&/||` if
+  appropriate.
+<sup>[[link](#no-nested-modifiers)]</sup>
+
+  ```Ruby
+  # bad
+  do_something if other_condition if some_condition
+
+  # good
+  do_something if some_condition && other_condition
   ```
 
 * <a name="unless-for-negatives"></a>
@@ -1418,7 +1525,7 @@ condition](#safe-assignment-in-condition).
     def bar(y)
       # body omitted
     end
-    
+
     bar(x)
   end
 
@@ -1426,7 +1533,7 @@ condition](#safe-assignment-in-condition).
   def bar(y)
     # body omitted
   end
-  
+
   def foo(x)
     bar(x)
   end
@@ -1462,6 +1569,32 @@ condition](#safe-assignment-in-condition).
     tmp = a * 7
     tmp * b / 50
   end
+  ```
+
+* <a name="stabby-lambda-with-args"></a>
+Don't omit the parameter parentheses when defining a stabby lambda with
+parameters.
+<sup>[[link](#stabby-lambda-with-args)]</sup>
+
+  ```Ruby
+  # bad
+  l = ->x, y { something(x, y) }
+
+  # good
+  l = ->(x, y) { something(x, y) }
+  ```
+
+* <a name="stabby-lambda-no-args"></a>
+Omit the parameter parentheses when defining a stabby lambda with
+no parameters.
+<sup>[[link](#stabby-lambda-no-args)]</sup>
+
+  ```Ruby
+  # bad
+  l = ->() { something }
+
+  # good
+  l = -> { something }
   ```
 
 * <a name="proc"></a>
@@ -1857,12 +1990,20 @@ condition](#safe-assignment-in-condition).
     ...
   end
 
+  class XmlSomething
+    ...
+  end
+
   # good
   class SomeClass
     ...
   end
 
   class SomeXML
+    ...
+  end
+
+  class XMLSomething
     ...
   end
   ```
@@ -1991,7 +2132,7 @@ condition](#safe-assignment-in-condition).
 
 * <a name="english-syntax"></a>
   Comments longer than a word are capitalized and use punctuation. Use [one
-  space](http://en.wikipedia.org/wiki/Sentence_spacing) after periods.
+  space](https://en.wikipedia.org/wiki/Sentence_spacing) after periods.
 <sup>[[link](#english-syntax)]</sup>
 
 * <a name="no-superfluous-comments"></a>
@@ -2241,12 +2382,12 @@ condition](#safe-assignment-in-condition).
 * <a name="liskov"></a>
   When designing class hierarchies make sure that they conform to the [Liskov
   Substitution
-  Principle](http://en.wikipedia.org/wiki/Liskov_substitution_principle).
+  Principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle).
 <sup>[[link](#liskov)]</sup>
 
 * <a name="solid-design"></a>
   Try to make your classes as
-  [SOLID](http://en.wikipedia.org/wiki/SOLID_\(object-oriented_design\)) as
+  [SOLID](https://en.wikipedia.org/wiki/SOLID_\(object-oriented_design\)) as
   possible.
 <sup>[[link](#solid-design)]</sup>
 
@@ -2366,7 +2507,7 @@ condition](#safe-assignment-in-condition).
   ```
 
 * <a name="duck-typing"></a>
-  Prefer [duck-typing](http://en.wikipedia.org/wiki/Duck_typing) over
+  Prefer [duck-typing](https://en.wikipedia.org/wiki/Duck_typing) over
   inheritance.
 <sup>[[link](#duck-typing)]</sup>
 
@@ -2462,10 +2603,10 @@ condition](#safe-assignment-in-condition).
   end
   ```
 
-* <a name="def-self-singletons"></a>
-  Use `def self.method` to define singleton methods. This makes the code
+* <a name="def-self-class-methods"></a>
+  Use `def self.method` to define class methods. This makes the code
   easier to refactor since the class name is not repeated.
-<sup>[[link](#def-self-singletons)]</sup>
+<sup>[[link](#def-self-class-methods)]</sup>
 
   ```Ruby
   class TestClass
@@ -2480,7 +2621,7 @@ condition](#safe-assignment-in-condition).
     end
 
     # Also possible and convenient when you
-    # have to define many singleton methods.
+    # have to define many class methods.
     class << self
       def first_method
         # body omitted
@@ -2749,7 +2890,6 @@ condition](#safe-assignment-in-condition).
   # also good
   begin
     # an exception occurs here
-
   rescue StandardError => e
     # exception handling
   end
@@ -2764,18 +2904,18 @@ condition](#safe-assignment-in-condition).
   # bad
   begin
     # some code
-  rescue Exception => e
-    # some handling
   rescue StandardError => e
+    # some handling
+  rescue IOError => e
     # some handling that will never be executed
   end
 
   # good
   begin
     # some code
-  rescue StandardError => e
+  rescue IOError => e
     # some handling
-  rescue Exception => e
+  rescue StandardError => e
     # some handling
   end
   ```
@@ -2992,18 +3132,19 @@ resource cleanup when possible.
   ```
 
 * <a name="use-hash-blocks"></a>
-  Prefer the use of the block instead of the default value in `Hash#fetch` if the code that has to be evaluated may have side effects or be expensive.
-<sup>[[link](#use-hash-blocks)]</sup>
+  Prefer the use of the block instead of the default value in `Hash#fetch`
+  if the code that has to be evaluated may have side effects or be expensive.
+  <sup>[[link](#use-hash-blocks)]</sup>
 
   ```Ruby
   batman = { name: 'Bruce Wayne' }
 
   # bad - if we use the default value, we eager evaluate it
   # so it can slow the program down if done multiple times
-  batman.fetch(:powers, get_batman_powers) # get_batman_powers is an expensive call
+  batman.fetch(:powers, obtain_batman_powers) # obtain_batman_powers is an expensive call
 
   # good - blocks are lazy evaluated, so only triggered in case of KeyError exception
-  batman.fetch(:powers) { get_batman_powers }
+  batman.fetch(:powers) { obtain_batman_powers }
   ```
 
 * <a name="hash-values-at"></a>
@@ -3084,12 +3225,12 @@ resource cleanup when possible.
 
 * <a name="string-interpolation"></a>
   With interpolated expressions, there should be no padded-spacing inside the braces.
-<sup>[[link](#pad-string-interpolation)]</sup>
+<sup>[[link](#string-interpolation)]</sup>
 
   ```Ruby
   # bad
   "From: #{ user.first_name }, #{ user.last_name }"
-  
+
   # good
   "From: #{user.first_name}, #{user.last_name}"
   ```
@@ -3193,6 +3334,14 @@ resource cleanup when possible.
 <sup>[[link](#concat-strings)]</sup>
 
   ```Ruby
+  # bad
+  html = ''
+  html += '<h1>Page title</h1>'
+
+  paragraphs.each do |paragraph|
+    html += "<p>#{paragraph}</p>"
+  end
+
   # good and also fast
   html = ''
   html << '<h1>Page title</h1>'
@@ -3257,12 +3406,15 @@ resource cleanup when possible.
   ```
 
 * <a name="non-capturing-regexp"></a>
-  Use non-capturing groups when you don't use captured result of parentheses.
+  Use non-capturing groups when you don't use the captured result.
 <sup>[[link](#non-capturing-regexp)]</sup>
 
   ```Ruby
-  /(first|second)/   # bad
-  /(?:first|second)/ # good
+  # bad
+  /(first|second)/
+
+  # good
+  /(?:first|second)/
   ```
 
 * <a name="no-perl-regexp-last-matchers"></a>
@@ -3331,8 +3483,14 @@ resource cleanup when possible.
   ```
 
 * <a name="gsub-blocks"></a>
-  For complex replacements `sub`/`gsub` can be used with block or hash.
+  For complex replacements `sub`/`gsub` can be used with a block or a hash.
 <sup>[[link](#gsub-blocks)]</sup>
+
+  ```Ruby
+  words = 'foo bar'
+  words.sub(/f/, 'f' => 'F') # => 'Foo bar'
+  words.gsub(/\w+/) { |word| word.capitalize } # => 'Foo Bar'
+  ```
 
 ## Percent Literals
 
@@ -3375,6 +3533,7 @@ resource cleanup when possible.
   name = 'Bruce Wayne'
   time = "8 o'clock"
   question = '"What did you say?"'
+  quote = %q(<p class='quote'>"What did you say?"</p>)
   ```
 
 * <a name="percent-r"></a>
@@ -3513,6 +3672,59 @@ resource cleanup when possible.
   Prefer `public_send` over `send` so as not to circumvent `private`/`protected` visibility.
 <sup>[[link](#prefer-public-send)]</sup>
 
+  ```ruby
+  # We have  an ActiveModel Organization that includes concern Activatable
+  module Activatable
+    extend ActiveSupport::Concern
+
+    included do
+      before_create :create_token
+    end
+
+    private
+
+    def reset_token
+      ...
+    end
+
+    def create_token
+      ...
+    end
+
+    def activate!
+      ...
+    end
+  end
+
+  class Organization < ActiveRecord::Base
+    include Activatable
+  end
+
+  linux_organization = Organization.find(...)
+  # BAD - violates privacy
+  linux_organization.send(:reset_token)
+  # GOOD - should throw an exception
+  linux_organization.public_send(:reset_token)
+  ```
+
+* <a name="prefer-__send__"></a>
+  Prefer `__send__` over `send`, as `send` may overlap with existing methods.
+<sup>[[link](#prefer-__send__)]</sup>
+
+  ```ruby
+  require 'socket'
+
+  u1 = UDPSocket.new
+  u1.bind('127.0.0.1', 4913)
+  u2 = UDPSocket.new
+  u2.connect('127.0.0.1', 4913)
+  # Won't send a message to the receiver obj.
+  # Instead it will send a message via UDP socket.
+  u2.send :sleep, 0
+  # Will actually send a message to the receiver obj.
+  u2.__send__ ...
+  ```
+
 ## Misc
 
 * <a name="always-warn"></a>
@@ -3587,7 +3799,7 @@ resource cleanup when possible.
 
 ## Tools
 
-Here's some tools to help you automatically check Ruby code against
+Here are some tools to help you automatically check Ruby code against
 this guide.
 
 ### RuboCop
@@ -3621,9 +3833,9 @@ Feel free to open tickets or send pull requests with improvements. Thanks in
 advance for your help!
 
 You can also support the project (and RuboCop) with financial
-contributions via [gittip](https://www.gittip.com/bbatsov).
+contributions via [Gratipay](https://gratipay.com/~bbatsov/).
 
-[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/bbatsov)
+[![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/~bbatsov/)
 
 ## How to Contribute?
 
@@ -3645,9 +3857,9 @@ best possible guide, don't we?
 Cheers,<br>
 [Bozhidar](https://twitter.com/bbatsov)
 
-[PEP-8]: http://www.python.org/dev/peps/pep-0008/
+[PEP-8]: https://www.python.org/dev/peps/pep-0008/
 [rails-style-guide]: https://github.com/bbatsov/rails-style-guide
-[pickaxe]: http://pragprog.com/book/ruby4/programming-ruby-1-9-2-0
+[pickaxe]: https://pragprog.com/book/ruby4/programming-ruby-1-9-2-0
 [trpl]: http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177
-[transmuter]: https://github.com/TechnoGate/transmuter
+[transmuter]: https://github.com/kalbasit/transmuter
 [RuboCop]: https://github.com/bbatsov/rubocop

@@ -64,8 +64,7 @@ Ruby自身の変化によって過去に定めたルールが時代遅れにな�
 結果としてルールの衝突が発生した場合は、
 そのプロジェクトにおいては、プロジェクト固有のガイドを優先します。
 
-PDFやHTMLのコピーはこのガイドを使って作成できます
-[Transmuter][]。
+このガイドのPDFやHTMLのコピーは[Transmuter][]を使って生成できます。
 
 [RuboCop][]は、
 このスタイルガイドに基づいたコード分析器です。
@@ -74,8 +73,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * [中国語(簡体)](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhCN.md)
 * [中国語(繁体)](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhTW.md)
-* [フランス語](https://github.com/porecreat/ruby-style-guide/blob/master/README-frFR.md)
-* [ドイツ語](https://github.com/arbox/ruby-style-guide/blob/master/README-deDE.md)
+* [フランス語](https://github.com/gauthier-delacroix/ruby-style-guide/blob/master/README-frFR.md)
+* [ドイツ語](https://github.com/arbox/de-ruby-style-guide/blob/master/README-deDE.md)
 * [日本語](https://github.com/fortissimo1997/ruby-style-guide/blob/japanese/README.ja.md)
 * [韓国語](https://github.com/dalzony/ruby-style-guide/blob/master/README-koKR.md)
 * [ポルトガル語](https://github.com/rubensmabueno/ruby-style-guide/blob/master/README-PT-BR.md)
@@ -253,6 +252,11 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#no-spaces-braces)]</sup>
 
   ```Ruby
+  # 悪い例
+  some( arg ).other
+  [ 1, 2, 3 ].size
+
+  # 良い例
   some(arg).other
   [1, 2, 3].size
   ```
@@ -285,9 +289,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="indent-when-to-case"></a>
   `when`は`case`と同じ深さに揃えましょう。
-  多くの人が同意できないのを知っていますが、
   このスタイルは"The Ruby Programming Language"、"Programming Ruby"
-  双方で確立されたものなのです。
+  双方で確立されたものです。
 <sup>[[link](#indent-when-to-case)]</sup>
 
   ```Ruby
@@ -642,6 +645,95 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
    end
    ```
 
+* <a name="optional-arguments"></a>
+  オプショナル引数は引数リストの最後に定義しましょう。
+  引数リストの先頭にオプショナル引数があるメソッドを呼んだ場合、
+  Rubyの挙動は予測不能です。
+<sup>[[link](#optional-arguments)]</sup>
+
+  ```Ruby
+  # 悪い例
+  def some_method(a = 1, b = 2, c, d)
+    puts "#{a}, #{b}, #{c}, #{d}"
+  end
+
+  some_method('w', 'x') # => '1, 2, w, x'
+  some_method('w', 'x', 'y') # => 'w, 2, x, y'
+  some_method('w', 'x', 'y', 'z') # => 'w, x, y, z'
+
+  # 良い例
+  def some_method(c, d, a = 1, b = 2)
+    puts "#{a}, #{b}, #{c}, #{d}"
+  end
+
+  some_method('w', 'x') # => 'w, x, 1, 2'
+  some_method('w', 'x', 'y') # => 'w, x, y, 2'
+  some_method('w', 'x', 'y', 'z') # => 'w, x, y, z'
+  ```
+* <a name="parallel-assignment"></a>
+  変数を定義するために多重代入を使うのは避けましょう。
+  多重代入を使っていいのはメソッド戻り値を変数に代入する時、
+  splat演算子とともに使う時、
+  変数の値を相互に入れ替えたい時に限ります。
+  多重代入は代入をそれぞれ別に実施した場合と比べて可読性に劣ります。
+<sup>[[link](#parallel-assignment)]</sup>
+
+  ```Ruby
+  # 悪い例
+  a, b, c, d = 'foo', 'bar', 'baz', 'foobar'
+
+  # 良い例
+  a = 'foo'
+  b = 'bar'
+  c = 'baz'
+  d = 'foobar'
+
+  # 良い例 - 変数の値の入れ替え
+  # この用法は変数に入っている値を相互に入れ替えることができるので
+  # 特例として認められます。
+  a = 'foo'
+  b = 'bar'
+
+  a, b = b, a
+  puts a # => 'bar'
+  puts b # => 'foo'
+
+  # 良い例 - メソッドの戻り値
+  def multi_return
+    [1, 2]
+  end
+
+  first, second = multi_return
+
+  # 良い例 - splatとともに使う場合
+  first, *list = [1,2,3,4]
+
+  hello_array = *"Hello"
+
+  a = *(1..3)
+  ```
+
+* <a name="trailing-underscore-variables"></a>
+  多重代入においては不要なアンダースコア変数を後ろに並べないようにしましょう。
+  アンダースコア変数は左辺にsplat変数を定義するときには必要です。
+  その場合、splat変数はアンダースコアではありえないです。
+<sup>[[link]](#trailing-underscore-variables)</sup>
+
+  ```Ruby
+  # 悪い例
+  a, b, _ = *foo
+  a, _, _ = *foo
+  a, *_ = *foo
+
+  # 良い例
+  *a, _ = *foo
+  *a, b, _ = *foo
+  a, = *foo
+  a, b, = *foo
+  a, _b = *foo
+  a, _b, = *foo
+  ```
+
 * <a name="no-for-loops"></a>
   あなたが使ってはならない理由を正確に知っていなければ、決して`for`を使ってはいけません。
   代わりにイテレータが使われるべきです。
@@ -795,13 +887,13 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```Ruby
   # 悪い例
   x = 'test'
-  # obscure nil check
+  # 難読なnil判定
   if !!x
     # body omitted
   end
 
   x = false
-  # 二重否定はbooleanとして役に立ちません。
+  # 二重否定はbooleanとして役に立ちません
   !!x # => false
 
   # 良い例
@@ -835,8 +927,6 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   # 制御構文
   document.saved? || document.save!
   ```
-
-  留意しなければならないのは、このルールには例外([条件式中の安全な代入](#safe-assignment-in-condition))があるということです。
 
 * <a name="no-multiline-ternary"></a>
   複数行にまたがる三項演算子`?:`は避けましょう; 代わりに`if/unless`を使いましょう。
@@ -876,6 +966,19 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
       # 複数行のbody省略
     end
   end
+  ```
+
+* <a name="no-nested-modifiers"></a>
+  `if/unless/while/until` 修飾子をネストして利用しないようにしましょう。
+  可能であれば `&&/||` を使いましょう。
+<sup>[[link](#no-nested-modifiers)]</sup>
+
+  ```Ruby
+  # 悪い例
+  do_something if other_condition if some_condition
+
+  # 良い例
+  do_something if some_condition && other_condition
   ```
 
 * <a name="unless-for-negatives"></a>
@@ -932,6 +1035,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
     # body omitted
   end
   ```
+
+留意しなければならないのは、このルールには例外([条件式中の安全な代入](#safe-assignment-in-condition))があるということです。
 
 * <a name="no-multiline-while-do"></a>
   複数行の`while/until`では、`while/until condition do`を使ってはいけません。
@@ -1148,7 +1253,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   # 悪い例
   def with_tmp_dir
     Dir.mktmpdir do |tmp_dir|
-      Dir.chdir(tmp_dir) { |dir| yield dir }  # block just passes arguments
+      Dir.chdir(tmp_dir) { |dir| yield dir }  # 引数を渡しているだけのブロック
     end
   end
 
@@ -1466,6 +1571,30 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   end
   ```
 
+* <a name="stabby-lambda-with-args"></a>
+  stabby lambdaを定義するときは、引数の周りの括弧は省略しないようにしましょう。
+<sup>[[link](#stabby-lambda-with-args)]</sup>
+
+  ```Ruby
+  # 悪い例
+  l = ->x, y { something(x, y) }
+
+  # 良い例
+  l = ->(x, y) { something(x, y) }
+  ```
+
+* <a name="stabby-lambda-no-args"></a>
+  stabby lambdaに引数がないときは、引数のための括弧は省略しましょう。
+<sup>[[link](#stabby-lambda-no-args)]</sup>
+
+  ```Ruby
+  # 悪い例
+  l = ->() { something }
+
+  # 良い例
+  l = -> { something }
+  ```
+
 * <a name="proc"></a>
   `Proc.new`より`proc`を好みます。
 <sup>[[link](#proc)]</sup>
@@ -1667,11 +1796,9 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
   ```ruby
   # 悪い例
-
   END { puts 'Goodbye!' }
 
   # 良い例
-
   at_exit { puts 'Goodbye!' }
   ```
 
@@ -1845,12 +1972,20 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
     ...
   end
 
+  class XmlSomething
+    ...
+  end
+
   # 良い例
   class SomeClass
     ...
   end
 
   class SomeXML
+    ...
+  end
+
+  class XMLSomething
     ...
   end
   ```
@@ -2075,32 +2210,35 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
   ```Ruby
   class Person
-    # extend や include を最初に行います
+    # extendとincludeを最初に書きます。
     extend SomeModule
     include AnotherModule
 
-    # 定数定義はその次です
+    # 内部クラス
+    CustomErrorKlass = Class.new(StandardError)
+
+    # 次に定数
     SOME_CONSTANT = 20
 
-    # その後ろはアトリビュートマクロです
+    # 次にattribute系マクロ
     attr_reader :name
 
-    # 他のマクロが続きます(もしあれば)
+    # (あれば) それ以外のマクロ
     validates :name
 
-    # public class methods が次に来ます
+    # publicクラスメソッドが続きます
     def self.some_method
     end
 
-    # initializeはclass methodsと他のinstance methodsの間に来ます
+    # initializationはクラスメソッドと他のpublicメソッドの間に
     def initialize
     end
 
-    # 他のpublic instance methods が続きます
+    # 他のpublicメソッドが続きます
     def some_method
     end
 
-    # protected and private methods は後ろの方にまとめます
+    # protectedとprivateのメソッドは最後のあたりにグループ化します
     protected
 
     def some_protected_method
@@ -2221,13 +2359,13 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 
 * <a name="liskov"></a>
   クラス階層の設計を行うときは、
-  [リスコフの置換原則](http://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%B9%E3%82%B3%E3%83%95%E3%81%AE%E7%BD%AE%E6%8F%9B%E5%8E%9F%E5%89%87).
+  [リスコフの置換原則](https://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%B9%E3%82%B3%E3%83%95%E3%81%AE%E7%BD%AE%E6%8F%9B%E5%8E%9F%E5%89%87).
   に従いましょう。
 <sup>[[link](#liskov)]</sup>
 
 * <a name="solid-design"></a>
   あなたのクラスを可能な限り
-  [SOLID](http://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
+  [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design))
   に保ちましょう。
 <sup>[[link](#solid-design)]</sup>
 
@@ -2346,7 +2484,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="duck-typing"></a>
-  継承より[ダック・タイピング](http://ja.wikipedia.org/wiki/%E3%83%80%E3%83%83%E3%82%AF%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%94%E3%83%B3%E3%82%B0)が好まれます。
+  継承より[ダック・タイピング](https://ja.wikipedia.org/wiki/%E3%83%80%E3%83%83%E3%82%AF%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%94%E3%83%B3%E3%82%B0)が好まれます。
 <sup>[[link](#duck-typing)]</sup>
 
   ```Ruby
@@ -2439,10 +2577,10 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   end
   ```
 
-* <a name="def-self-singletons"></a>
-  シングルトンメソッドを定義するときは`def self.method`を用いましょう。
+* <a name="def-self-class-methods"></a>
+  クラスメソッドを定義するときは`def self.method`を用いましょう。
   クラス名を繰り返さないので、簡単にリファクタリングできるようになります。
-<sup>[[link](#def-self-singletons)]</sup>
+<sup>[[link](#def-self-class-methods)]</sup>
 
   ```Ruby
   class TestClass
@@ -2456,8 +2594,8 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
       # body omitted
     end
 
-    # たくさんのシングルトンメソッドを定義しなければならない時
-    # この書き方も便利で、許容できます。
+    # たくさんのクラスメソッドを定義しなければならない時
+    # この書き方も便利です。
     class << self
       def first_method
         # body omitted
@@ -2740,18 +2878,18 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   # 悪い例
   begin
     # 処理
-  rescue Exception => e
-    # エラー処理
   rescue StandardError => e
+    # エラー処理
+  rescue IOError => e
     # 決して到達しないエラー処理
   end
 
   # 良い例
   begin
     # 処理
-  rescue StandardError => e
+  rescue IOError => e
     # エラー処理
-  rescue Exception => e
+  rescue StandardError => e
     # エラー処理
   end
   ```
@@ -3165,6 +3303,14 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#concat-strings)]</sup>
 
   ```Ruby
+  # 悪い例
+  html = ''
+  html += '<h1>Page title</h1>'
+
+  paragraphs.each do |paragraph|
+    html += "<p>#{paragraph}</p>"
+  end
+
   # 良く、そして速い例
   html = ''
   html << '<h1>Page title</h1>'
@@ -3233,8 +3379,11 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#non-capturing-regexp)]</sup>
 
   ```Ruby
-  /(first|second)/   # 悪い例
-  /(?:first|second)/ # 良い例
+  # 悪い例
+  /(first|second)/
+
+  # 良い例
+  /(?:first|second)/
   ```
 
 * <a name="no-perl-regexp-last-matchers"></a>
@@ -3313,6 +3462,12 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 * <a name="gsub-blocks"></a>
   `sub`/`gsub`での複雑な置換は、ブロックやハッシュを用いることで実現できます。
 <sup>[[link](#gsub-blocks)]</sup>
+
+  ```Ruby
+  words = 'foo bar'
+  words.sub(/f/, 'f' => 'F') # => 'Foo bar'
+  words.gsub(/\w+/) { |word| word.capitalize } # => 'Foo Bar'
+  ```
 
 ## パーセントリテラル
 
@@ -3492,8 +3647,61 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
   ```
 
 * <a name="prefer-public-send"></a>
-  `private`/`protected`制約を避けないように、`send`よりも`public_send`を好みます。
+  `private`/`protected`制約を回避しないために、`send`よりも`public_send`を使いましょう。
 <sup>[[link](#prefer-public-send)]</sup>
+
+  ```ruby
+  # OrganizationというActiveModelがあって、Activatableをincludeしている
+  module Activatable
+    extend ActiveSupport::Concern
+
+    included do
+      before_create :create_token
+    end
+
+    private
+
+    def reset_token
+      ...
+    end
+
+    def create_token
+      ...
+    end
+
+    def activate!
+      ...
+    end
+  end
+
+  class Organization < ActiveRecord::Base
+    include Activatable
+  end
+
+  linux_organization = Organization.find(...)
+  # 悪い例 - 可視性を無視している
+  linux_organization.send(:reset_token)
+  # 良い例 - 例外があがる
+  linux_organization.public_send(:reset_token)
+  ```
+
+* <a name="prefer-__send__"></a>
+  `send`は他の既存のメソッドと衝突するかもしれないので、`__send__`を使いましょう。
+<sup>[[link](#prefer-__send__)]</sup>
+
+  ```ruby
+  require 'socket'
+
+  u1 = UDPSocket.new
+  u1.bind('127.0.0.1', 4913)
+  u2 = UDPSocket.new
+  u2.connect('127.0.0.1', 4913)
+  # レシーバーオブジェクトにメッセージが送信されない
+  # かわりに、UDPソケット経由でメッセージが送信されてしまう
+  u2.send :sleep, 0
+  # こちらならたしかにレシーバーオブジェクトにメッセージが送信される
+  u2.__send__ ...
+  ```
 
 ## 雑則
 
@@ -3598,9 +3806,9 @@ Rubyのコードスタイルに興味のある全ての人と共に取り組む�
 あなたの手助けに予め感謝します！
 
 また、このプロジェクト(とRubocop)への金銭的な貢献は、
-[gittip](https://www.gittip.com/bbatsov)経由で行うことができます。
+[Gratipay](https://gratipay.com/~bbatsov/)経由で行うことができます。
 
-[![Gittip経由での支援](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/bbatsov)
+[![Gratipay経由での支援](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/~bbatsov/)
 
 ## 貢献するには
 
@@ -3622,9 +3830,9 @@ Rubyのコードスタイルに興味のある全ての人と共に取り組む�
 ありがとう<br>
 [Bozhidar](https://twitter.com/bbatsov)
 
-[PEP-8]: http://www.python.org/dev/peps/pep-0008/
+[PEP-8]: https://www.python.org/dev/peps/pep-0008/
 [rails-style-guide]: https://github.com/bbatsov/rails-style-guide
-[pickaxe]: http://pragprog.com/book/ruby4/programming-ruby-1-9-2-0
+[pickaxe]: https://pragprog.com/book/ruby4/programming-ruby-1-9-2-0
 [trpl]: http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177
-[transmuter]: https://github.com/TechnoGate/transmuter
+[transmuter]: https://github.com/kalbasit/transmuter
 [RuboCop]: https://github.com/bbatsov/rubocop
