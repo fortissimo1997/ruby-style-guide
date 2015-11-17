@@ -2878,7 +2878,7 @@ PDFやHTMLのコピーはこのガイドを使って作成できます
 <sup>[[link](#set-vs-array)]</sup>
 
 * <a name="symbols-as-keys"></a>
-  ハッシュのキーには文字列よりシンボルが好まれます。
+  ハッシュのキーには文字列よりシンボルを使いましょう。
 <sup>[[link](#symbols-as-keys)]</sup>
 
   ```Ruby
