@@ -1688,7 +1688,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   単に`_`を用いるのも許容されます
   (少し説明不足ではありますが)。
   この記法を使うことで、
-  RubyインタープリタやRubocopのような対応しているツールでは
+  RubyインタープリタやRuboCopのような対応しているツールでは
   変数を使っていないという警告を抑制できます。
 <sup>[[link](#underscore-unused-vars)]</sup>
 
@@ -4174,7 +4174,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 
 [RuboCop][]は、このガイドに基づいた
 Rubyコードスタイルチェッカーです。
-Rubocopはすでにこのガイドの重要な部分をカバーしており、
+RuboCopはすでにこのガイドの重要な部分をカバーしており、
 MRI 1.9、MRI 2.0 双方をサポートし、Emacs向けのよいプラグインがあります。
 
 ### RubyMine
@@ -4196,7 +4196,7 @@ Rubyのコードスタイルに興味のある全ての人と共に取り組む�
 改善のために、遠慮せずチケットを立てたりプルリクエストを送ったりしてください。
 あなたの手助けに予め感謝します！
 
-また、このプロジェクト(とRubocop)への金銭的な貢献は、
+また、このプロジェクト(とRuboCop)への金銭的な貢献は、
 [Gratipay](https://gratipay.com/~bbatsov/)経由で行うことができます。
 
 [![Gratipay経由での支援](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/~bbatsov/)
