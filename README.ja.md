@@ -125,7 +125,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 
 * <a name="crlf"></a>
   Unix-styleの改行にしましょう。
-(\*BSD/Solaris/Linux/OS X ユーザーはデフォルトで設定されています。
+(\*BSD/Solaris/Linux/macOS ユーザーはデフォルトで設定されています。
   Windows ユーザーは特に注意が必要です。)
 <sup>[[link](#crlf)]</sup>
 
