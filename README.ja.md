@@ -1850,6 +1850,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 * <a name="named-format-tokens"></a>
   名前付きフォーマット文字列を使用する場合、`%{name}`よりも`%<name>s`を使いましょう。
   `%<name>s`は値の型に関する情報をエンコードするためです。
+<sup>[[link]](#named-format-tokens)</sup>
 
   ```ruby
   # 悪い例
@@ -1858,7 +1859,6 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   # 良い例
   format('Hello, %<name>s', name: 'John')
   ```
-<sup>[[link](#named-format-tokens)</sup>
 
 * <a name="array-join"></a>
   あまりに暗号めいている`Array#*`メソッドよりも`Array#join`を使いましょう。
