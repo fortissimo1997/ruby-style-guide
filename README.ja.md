@@ -1829,16 +1829,29 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   # => '20 10'
 
   # 良い例
-  sprintf('%{first} %{second}', first: 20, second: 10)
+  sprintf('%<first>d %<second>d', first: 20, second: 10)
   # => '20 10'
 
   format('%d %d', 20, 10)
   # => '20 10'
 
   # 良い例
-  format('%{first} %{second}', first: 20, second: 10)
+  format('%<first>d %<second>d', first: 20, second: 10)
   # => '20 10'
   ```
+
+* <a name="named-format-tokens"></a>
+  名前付きフォーマット文字列を使用する場合、`%{name}`よりも`%<name>s`を使いましょう。
+  `%<name>s`は値の型に関する情報をエンコードするためです。
+
+  ```Ruby
+  # 悪い例
+  format('Hello, %{name}', name: 'John')
+
+  # 良い例
+  format('Hello, %<name>s', name: 'John')
+  ```
+<sup>[[link](#named-format-tokens)</sup>
 
 * <a name="array-join"></a>
   あまりに暗号めいている`Array#*`メソッドよりも`Array#join`を使いましょう。
