@@ -402,6 +402,88 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   end
   ```
 
+* <a name="to-or-more-empty-lines"></a>
+  空行を複数連続して用いてはいけません。
+<sup>[[link](#two-or-more-empty-lines)]</sup>
+
+  ```Ruby
+  # 悪い例 - 空行が2つあります
+  some_method
+
+
+  some_method
+
+  # 良い例
+  some_method
+
+  some_method
+  ```
+
+* <a name="empty-lines-around-access-modifier"></a>
+  アクセス修飾子の前後には空行を用いましょう。
+<sup>[[link](#empty-lines-around-access-modifier)]</sup>
+
+  ```Ruby
+  # 悪い例
+  class Foo
+    attr_reader :foo
+    def foo
+      # do something...
+    end
+  end
+
+  # 良い例
+  class Foo
+    attr_reader :foo
+
+    def foo
+      # do something...
+    end
+  end
+  ```
+
+* <a name="empty-lines-around-bodies"></a>
+  メソッド、クラス、モジュール、ブロックの本文の前後には、空行を用いてはいけません。
+<sup>[[link](#empty-lines-around-bodies)]</sup>
+
+  ```Ruby
+  # 悪い例
+  class Foo
+
+    def foo
+
+      begin
+
+        do_something do
+
+          something
+
+        end
+
+      rescue
+
+        something
+
+      end
+
+    end
+
+  end
+
+  # 良い例
+  class Foo
+    def foo
+      begin
+        do_something do
+          something
+        end
+      rescue
+        something
+      end
+    end
+  end
+  ```
+
 * <a name="no-trailing-params-comma"></a>
   メソッド呼び出しの最後の引数の後ろのコンマは避けましょう。
   引数が複数行にわかれていない時は、特に避けましょう。
