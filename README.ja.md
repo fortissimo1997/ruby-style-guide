@@ -780,7 +780,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   temperance = Person.new('Temperance', 30)
   ```
 
-  以下の場合は括弧を省略します
+  以下の場合は常に括弧を省略します
 
   * 引数のないメソッド:
 
@@ -818,13 +818,20 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 
       # body omitted
     end
-
-    # 悪い例
-    puts(temperance.age)
-    # 良い例
-    puts temperance.age
     ```
 
+  以下の場合は括弧を省略することができます
+
+  * Rubyで「キーワード」と認識されているが、宣言的ではないメソッド:
+
+    ```Ruby
+    # 良い例
+    puts(temperance.age)
+    system('ls')
+    # こちらも良い例
+    puts temperance.age
+    system 'ls'
+    ```
 * <a name="optional-arguments"></a>
   オプショナル引数は引数リストの最後に定義しましょう。
   引数リストの先頭にオプショナル引数があるメソッドを呼んだ場合、
