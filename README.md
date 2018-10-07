@@ -53,22 +53,18 @@ This style guide evolves over time as additional conventions are
 identified and past conventions are rendered obsolete by changes in
 Ruby itself.
 
-Many projects have their own coding style guidelines (often derived
-from this guide). In the event of any conflicts, such
-project-specific guides take precedence for that project.
-
 You can generate a PDF or an HTML copy of this guide using
 [Pandoc][].
 
-[RuboCop][] is a code analyzer, based on this
+[RuboCop][] is a code code analyzer (linter) and formatter, based on this
 style guide.
 
 Translations of the guide are available in the following languages:
 
 * [Chinese Simplified](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhCN.md)
 * [Chinese Traditional](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhTW.md)
+* [Egyptian Arabic](https://github.com/HassanTC/ruby-style-guide/blob/master/README-EgAr.md)
 * [French](https://github.com/gauthier-delacroix/ruby-style-guide/blob/master/README-frFR.md)
-* [German](https://github.com/arbox/de-ruby-style-guide/blob/master/README-deDE.md)
 * [Japanese](https://github.com/fortissimo1997/ruby-style-guide/blob/japanese/README.ja.md)
 * [Korean](https://github.com/dalzony/ruby-style-guide/blob/master/README-koKR.md)
 * [Portuguese (pt-BR)](https://github.com/rubensmabueno/ruby-style-guide/blob/master/README-PT-BR.md)
@@ -217,7 +213,7 @@ Translations of the guide are available in the following languages:
   class FooError < StandardError; end
   ```
 
-  The only exception, regarding operators, is the exponent operator:
+  There are a few exceptions. One is the exponent operator:
 
   ```ruby
   # bad
@@ -225,6 +221,27 @@ Translations of the guide are available in the following languages:
 
   # good
   e = M * c**2
+  ```
+
+  Another exception is the slash in rational literals:
+
+  ```ruby
+  # bad
+  o_scale = 1 / 48r
+
+  # good
+  o_scale = 1/48r
+  ```
+
+  Another exception is the safe navigation operator:
+  ```ruby
+  # bad
+  foo &. bar
+  foo &.bar
+  foo&. bar
+
+  # good
+  foo&.bar
   ```
 
 * <a name="spaces-braces"></a>
@@ -297,7 +314,10 @@ Translations of the guide are available in the following languages:
 
 * <a name="indent-when-to-case"></a>
   Indent `when` as deep as `case`. This is the style established in both
-  "The Ruby Programming Language" and "Programming Ruby".
+  "The Ruby Programming Language" and "Programming Ruby". Historically it
+  is derived from the fact that `case` and `switch` statements are not blocks,
+  hence should not be indented, and the `when` and `else` keywords are labels
+  (compiled in the C language, they are literally labels for `JMP` calls).
 <sup>[[link](#indent-when-to-case)]</sup>
 
   ```ruby
@@ -576,7 +596,7 @@ Translations of the guide are available in the following languages:
     ```
 
   A discussion on the merits of both alternative styles can be found
-  [here](https://github.com/bbatsov/ruby-style-guide/pull/176).
+  [here](https://github.com/rubocop-hq/ruby-style-guide/pull/176).
 
 * <a name="no-double-indent"></a>
     Align the parameters of a method call if they span more than one
@@ -625,19 +645,19 @@ Translations of the guide are available in the following languages:
 
   ```ruby
   # bad - single indent
-  menu_item = ['Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam',
-    'Baked beans', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam']
+  menu_item = %w[Spam Spam Spam Spam Spam Spam Spam Spam
+    Baked beans Spam Spam Spam Spam Spam]
 
   # good
-  menu_item = [
-    'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam',
-    'Baked beans', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam'
+  menu_item = %w[
+    Spam Spam Spam Spam Spam Spam Spam Spam
+    Baked beans Spam Spam Spam Spam Spam
   ]
 
   # good
   menu_item =
-    ['Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam',
-     'Baked beans', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam']
+    %w[Spam Spam Spam Spam Spam Spam Spam Spam
+     Baked beans Spam Spam Spam Spam Spam]
   ```
 
 * <a name="underscores-in-numerics"></a>
@@ -653,7 +673,7 @@ Translations of the guide are available in the following languages:
   ```
 
 * <a name="numeric-literal-prefixes"></a>
-  Prefer smallcase letters for numeric literal prefixes.
+  Prefer lowercase letters for numeric literal prefixes.
   `0o` for octal, `0x` for hexadecimal and `0b` for binary.
   Do not use `0d` prefix for decimal literals.
 <sup>[[link](#numeric-literal-prefixes)]</sup>
@@ -674,10 +694,9 @@ Translations of the guide are available in the following languages:
   num = 1234
   ```
 
-* <a name="rdoc-conventions"></a>
-    Use [Rdoc][rdoc] and its conventions for API documentation.  Don't put an
-    empty line between the comment block and the `def`.
-<sup>[[link](#rdoc-conventions)]</sup>
+* <a name="api-documentation"></a>
+    Use [YARD][yard] and its conventions for API documentation.
+<sup>[[link](#api-documentation)]</sup>
 
 * <a name="80-character-limits"></a>
   Limit lines to 80 characters.
@@ -711,9 +730,9 @@ Translations of the guide are available in the following languages:
 ## Syntax
 
 * <a name="double-colons"></a>
-    Use `::` only to reference constants(this includes classes and
+    Use `::` only to reference constants (this includes classes and
     modules) and constructors (like `Array()` or `Nokogiri::HTML()`).
-    Do not use `::` for regular method invocation.
+     * Do not use `::` for regular method invocation.
 <sup>[[link](#double-colons)]</sup>
 
   ```ruby
@@ -726,6 +745,24 @@ Translations of the guide are available in the following languages:
   some_object.some_method
   SomeModule::SomeClass::SOME_CONST
   SomeModule::SomeClass()
+  ```
+
+* <a name="colon-method-definition"></a>
+    Do not use `::` to define class methods.
+<sup>[[link](#colon-method-definition)]</sup>
+
+  ```ruby
+  # bad
+  class Foo
+    def self::some_method
+    end
+  end
+
+  # good
+  class Foo
+    def self.some_method
+    end
+  end
   ```
 
 * <a name="method-parens"></a>
@@ -830,6 +867,7 @@ Translations of the guide are available in the following languages:
     puts temperance.age
     system 'ls'
     ```
+
 * <a name="optional-arguments"></a>
     Define optional arguments at the end of the list of arguments.
     Ruby has some unexpected results when calling methods that have
@@ -854,6 +892,46 @@ Translations of the guide are available in the following languages:
   some_method('w', 'x') # => '1, 2, w, x'
   some_method('w', 'x', 'y') # => 'y, 2, w, x'
   some_method('w', 'x', 'y', 'z') # => 'y, z, w, x'
+  ```
+
+* <a name="boolean-keyword-arguments"></a>
+  Use keyword arguments when passing boolean argument to a method.
+
+  ```Ruby
+  # bad
+  def some_method(bar = false)
+    puts bar
+  end
+
+  # bad - common hack before keyword args were introduced
+  def some_method(options = {})
+    bar = options.fetch(:bar, false)
+    puts bar
+  end
+
+  # good
+  def some_method(bar: false)
+    puts bar
+  end
+
+  some_method            # => false
+  some_method(bar: true) # => true
+  ```
+
+* <a name="keyword-arguments-vs-option-hashes"></a>
+  Use keyword arguments instead of option hashes.
+
+  ```Ruby
+  # bad
+  def some_method(options = {})
+    bar = options.fetch(:bar, false)
+    puts bar
+  end
+
+  # good
+  def some_method(bar: false)
+    puts bar
+  end
   ```
 
 * <a name="parallel-assignment"></a>
@@ -1118,18 +1196,18 @@ Translations of the guide are available in the following languages:
   ok = got_needed_arguments and arguments_are_valid
 
   # control flow
-  document.save or fail(RuntimeError, "Failed to save document!")
+  document.save or raise("Failed to save document!")
 
   # good
   # boolean expression
   ok = got_needed_arguments && arguments_are_valid
 
   # control flow
-  fail(RuntimeError, "Failed to save document!") unless document.save
+  raise("Failed to save document!") unless document.save
 
   # ok
   # control flow
-  document.save || fail(RuntimeError, "Failed to save document!")
+  document.save || raise("Failed to save document!")
   ```
 
 * <a name="no-multiline-ternary"></a>
@@ -1621,7 +1699,7 @@ condition](#safe-assignment-in-condition).
   # good
   something.is_a?(Array)
   (1..100).include?(7)
-  some_string =~ /something/
+  some_string.match?(/something/)
   ```
 
 * <a name="eql"></a>
@@ -2124,7 +2202,6 @@ no parameters.
   :someSymbol
 
   someVar = 5
-  var_10  = 10
 
   def someMethod
     # some code
@@ -2138,7 +2215,6 @@ no parameters.
   :some_symbol
 
   some_var = 5
-  var10    = 10
 
   def some_method
     # some code
@@ -2155,6 +2231,8 @@ no parameters.
 
   some_var_1 = 1
 
+  var_10  = 10
+
   def some_method_1
     # some code
   end
@@ -2163,6 +2241,8 @@ no parameters.
   :some_sym1
 
   some_var1 = 1
+
+  var10    = 10
 
   def some_method1
     # some code
@@ -2218,7 +2298,7 @@ no parameters.
 
 * <a name="one-class-per-file"></a>
   Aim to have just a single class/module per source file. Name the file name
-  as the class/module, but replacing CamelCase with snake_case.
+  as the class/module, but replacing `CamelCase` with `snake_case`.
 <sup>[[link](#one-class-per-file)]</sup>
 
 * <a name="screaming-snake-case"></a>
@@ -2331,12 +2411,48 @@ no parameters.
   ```
 
 * <a name="other-arg"></a>
-  When defining binary operators, name the parameter `other`(`<<` and `[]` are
-  exceptions to the rule, since their semantics are different).
+  When defining binary operators and operator-alike methods, name the parameter
+  `other` for operators with "symmetrical" semantics of operands. Symmetrical
+  semantics means both sides of the operator are typically of same or coercible
+  types.
 <sup>[[link](#other-arg)]</sup>
 
+  * operators and operator-alike methods with symmetrical semantics (the
+    parameter should be named `other`): `+`, `-`, `*`, `/`, `%`, `**`, `==`,
+    `>`, `<`, `|`, `&`, `^`, `eql?`, `equal?`;
+  * operators with non-symmetrical semantics (the parameter should **not** be
+    named `other`): `<<`, `[]` (collection/item relations between operands),
+    `===` (pattern/matchable relations);
+
+  Note that the rule should be followed **only** if both sides of the operator
+  have the same semantics. Prominent exception in Ruby core is, for example,
+   `Array#*(int)`.
+
   ```ruby
+  # good
   def +(other)
+    # body omitted
+  end
+
+  # bad
+  def <<(other)
+    @internal << other
+  end
+
+  # good
+  def <<(item)
+    @internal << item
+  end
+
+  # bad
+  # Returns some string multiplied `other` times
+  def *(other)
+    # body omitted
+  end
+
+  # good
+  # Returns some string multiplied `num` times
+  def *(num)
     # body omitted
   end
   ```
@@ -2460,32 +2576,39 @@ no parameters.
 ### Magic Comments
 
 * <a name="magic-comments-first"></a>
-  Place magic comments above all code and documentation. Magic comments should only go below shebangs if they are needed in your source file.
-<sup>[[link](#magic-comments-first)]</sup>
+  Place magic comments above all code and documentation in a file (except shebangs, which are discussed next).
 
   ```ruby
-  # good
-  # frozen_string_literal: true
+  # bad
   # Some documentation about Person
+
+  # frozen_string_literal: true
   class Person
   end
 
-  # bad
-  # Some documentation about Person
+  # good
   # frozen_string_literal: true
+
+  # Some documentation about Person
   class Person
   end
   ```
 
-  ```ruby
-  # good
-  #!/usr/bin/env ruby
-  # frozen_string_literal: true
-  App.parse(ARGV)
+* <a name="below-shebang"></a>
+  Place magic comments below shebangs when they are present in a file.
+<sup>[[link](#below-shebang)]</sup>
 
+  ```ruby
   # bad
   # frozen_string_literal: true
   #!/usr/bin/env ruby
+
+  App.parse(ARGV)
+
+  # good
+  #!/usr/bin/env ruby
+  # frozen_string_literal: true
+
   App.parse(ARGV)
   ```
 
@@ -2494,12 +2617,12 @@ no parameters.
 <sup>[[link](#one-magic-comment-per-line)]</sup>
 
   ```ruby
+  # bad
+  # -*- frozen_string_literal: true; encoding: ascii-8bit -*-
+
   # good
   # frozen_string_literal: true
   # encoding: ascii-8bit
-
-  # bad
-  # -*- frozen_string_literal: true; encoding: ascii-8bit -*-
   ```
 
 * <a name="separate-magic-comments-from-code"></a>
@@ -2507,16 +2630,16 @@ no parameters.
 <sup>[[link](#separate-magic-comments-from-code)]</sup>
 
   ```ruby
-  # good
+  # bad
   # frozen_string_literal: true
-
   # Some documentation for Person
   class Person
     # Some code
   end
 
-  # bad
+  # good
   # frozen_string_literal: true
+
   # Some documentation for Person
   class Person
     # Some code
@@ -2633,6 +2756,42 @@ no parameters.
   end
   ```
 
+* <a name="namespace-definition"></a>
+  Define (and reopen) namespaced classes and modules using explicit nesting.
+  Using the scope resolution operator can lead to surprising constant lookups
+  due to Ruby's [lexical scoping](https://cirw.in/blog/constant-lookup.html),
+  which depends on the module nesting at the point of definition.
+  <sup>[[link](#namespace-definition)]</sup>
+
+  ```Ruby
+  module Utilities
+    class Queue
+    end
+  end
+
+  # bad
+  class Utilities::Store
+    Module.nesting # => [Utilities::Store]
+
+    def initialize
+      # Refers to the top level ::Queue class because Utilities isn't in the
+      # current nesting chain.
+      @queue = Queue.new
+    end
+  end
+
+  # good
+  module Utilities
+    class WaitingList
+      Module.nesting # => [Utilities::WaitingList, Utilities]
+
+      def initialize
+        @queue = Queue.new # Refers to Utilities::Queue
+      end
+    end
+  end
+  ```
+
 * <a name="modules-vs-classes"></a>
   Prefer modules to classes with only class methods. Classes should be used
   only when it makes sense to create instances out of them.
@@ -2724,7 +2883,7 @@ no parameters.
     end
 
     def to_s
-      "#{@first_name} #{@last_name}"
+      "#{first_name} #{last_name}"
     end
   end
   ```
@@ -3521,7 +3680,7 @@ resource cleanup when possible.
   # bad - if we just use || operator with falsy value we won't get the expected result
   batman[:is_evil] || true # => true
 
-  # good - fetch work correctly with falsy values
+  # good - fetch works correctly with falsy values
   batman.fetch(:is_evil, true) # => false
   ```
 
@@ -3601,7 +3760,7 @@ resource cleanup when possible.
 ## Numbers
 
 * <a name="integer-type-checking"></a>
-  Use `Integer` check type of an integer number. Since `Fixnum` is
+  Use `Integer` to check type of an integer number. Since `Fixnum` is
   platform-dependent, checking against it will return different results on
   32-bit and 64-bit machines.
 <sup>[[link](#integer-type-checking)]</sup>
@@ -3617,18 +3776,18 @@ resource cleanup when possible.
   timestamp.is_a? Integer
   ```
 
-  * <a name="random-numbers"></a>
-    Prefer to use ranges when generating random numbers instead of integers with offsets,
-    since it clearly states your intentions. Imagine simulating a role of a dice:
-  <sup>[[link](#random-numbers)]</sup>
+* <a name="random-numbers"></a>
+  Prefer to use ranges when generating random numbers instead of integers with offsets,
+  since it clearly states your intentions. Imagine simulating a roll of a dice:
+<sup>[[link](#random-numbers)]</sup>
 
-    ```ruby
-    # bad
-    rand(6) + 1
+  ```ruby
+  # bad
+  rand(6) + 1
 
-    # good
-    rand(1..6)
-    ```
+  # good
+  rand(1..6)
+  ```
 
 ## Strings
 
@@ -3662,8 +3821,12 @@ resource cleanup when possible.
     # bad
     name = "Bozhidar"
 
+    name = 'De\'Andre'
+
     # good
     name = 'Bozhidar'
+
+    name = "De'Andre"
     ```
 
   * **(Option B)** Prefer double-quotes unless your string literal
@@ -3673,15 +3836,19 @@ resource cleanup when possible.
     # bad
     name = 'Bozhidar'
 
+    sarcasm = "I \"like\" it."
+
     # good
     name = "Bozhidar"
+
+    sarcasm = 'I "like" it.'
     ```
 
   The string literals in this guide are aligned with the first style.
 
 * <a name="no-character-literals"></a>
   Don't use the character literal syntax `?x`. Since Ruby 1.9 it's basically
-  redundant&mdash;`?x` would interpreted as `'x'` (a string with a single
+  redundant&mdash;`?x` would be interpreted as `'x'` (a string with a single
   character in it).
 <sup>[[link](#no-character-literals)]</sup>
 
@@ -3765,7 +3932,7 @@ resource cleanup when possible.
   ```
 
 * <a name="dont-abuse-gsub"></a>
-  Don't use `String#gsub` in scenarios in which you can use a faster more specialized alternative.
+  Don't use `String#gsub` in scenarios in which you can use a faster and more specialized alternative.
 <sup>[[link](#dont-abuse-gsub)]</sup>
 
     ```ruby
@@ -3803,28 +3970,57 @@ resource cleanup when possible.
 
   ```ruby
   # bad - using Powerpack String#strip_margin
-  code = <<-END.strip_margin('|')
+  code = <<-RUBY.strip_margin('|')
     |def test
     |  some_method
     |  other_method
     |end
-  END
+  RUBY
 
   # also bad
-  code = <<-END
+  code = <<-RUBY
   def test
     some_method
     other_method
   end
-  END
+  RUBY
 
   # good
-  code = <<~END
+  code = <<~RUBY
     def test
       some_method
       other_method
     end
+  RUBY
+  ```
+
+* <a name="heredoc-delimiters"></a>
+  Use descriptive delimiters for heredocs. Delimiters add valuable information
+  about the heredoc content, and as an added bonus some editors can highlight
+  code within heredocs if the correct delimiter is used.
+<sup>[[link](#heredoc-delimiters)]</sup>
+
+  ```ruby
+  # bad
+  code = <<~END
+    def foo
+      bar
+    end
   END
+
+  # good
+  code = <<~RUBY
+    def foo
+      bar
+    end
+  RUBY
+
+  # good
+  code = <<~SUMMARY
+    An imposing black structure provides a connection between the past and
+    the future in this enigmatic adaptation of a short story by revered
+    sci-fi author Arthur C. Clarke.
+  SUMMARY
   ```
 
 ## Date & Time
@@ -3835,7 +4031,7 @@ resource cleanup when possible.
 
 * <a name="no-datetime"></a>
   Don't use `DateTime` unless you need to account for historical calendar
-  reform -- and if you do, explicitly specify the `start` argument to
+  reform—and if you do, explicitly specify the `start` argument to
   clearly state your intentions.
 <sup>[[link](#no-datetime)]</sup>
 
@@ -3990,7 +4186,7 @@ resource cleanup when possible.
   ```
 
 * <a name="percent-q"></a>
-  Avoid %() or the equivalent %q() unless you have a string with both `'` and
+  Avoid `%()` or the equivalent `%q()` unless you have a string with both `'` and
   `"` in it. Regular string literals are more readable and should be preferred
   unless a lot of characters would have to be escaped in them.
 <sup>[[link](#percent-q)]</sup>
@@ -4009,7 +4205,7 @@ resource cleanup when possible.
   ```
 
 * <a name="percent-r"></a>
-  Use `%r` only for regular expressions matching *at least* one '/'
+  Use `%r` only for regular expressions matching *at least* one `'/'`
   character.
 <sup>[[link](#percent-r)]</sup>
 
@@ -4024,7 +4220,7 @@ resource cleanup when possible.
 
 * <a name="percent-x"></a>
   Avoid the use of `%x` unless you're going to invoke a command with
-  backquotes in it(which is rather unlikely).
+  backquotes in it (which is rather unlikely).
 <sup>[[link](#percent-x)]</sup>
 
   ```ruby
@@ -4115,12 +4311,12 @@ resource cleanup when possible.
       class_eval <<-EOT, __FILE__, __LINE__ + 1
         def #{unsafe_method}(*params, &block)       # def capitalize(*params, &block)
           to_str.#{unsafe_method}(*params, &block)  #   to_str.capitalize(*params, &block)
-        end                                       # end
+        end                                         # end
 
         def #{unsafe_method}!(*params)              # def capitalize!(*params)
-          @dirty = true                           #   @dirty = true
-          super                                   #   super
-        end                                       # end
+          @dirty = true                             #   @dirty = true
+          super                                     #   super
+        end                                         # end
       EOT
     end
   end
@@ -4135,13 +4331,13 @@ resource cleanup when possible.
 <sup>[[link](#no-method-missing)]</sup>
 
   - Be sure to [also define `respond_to_missing?`](http://blog.marc-andre.ca/2010/11/methodmissing-politely.html)
-  - Only catch methods with a well-defined prefix, such as `find_by_*` -- make your code as assertive as possible.
+  - Only catch methods with a well-defined prefix, such as `find_by_*`—make your code as assertive as possible.
   - Call `super` at the end of your statement
   - Delegate to assertive, non-magical methods:
 
     ```ruby
     # bad
-    def method_missing?(meth, *params, &block)
+    def method_missing(meth, *params, &block)
       if /^find_by_(?<prop>.*)/ =~ meth
         # ... lots of code to do a find_by
       else
@@ -4150,7 +4346,7 @@ resource cleanup when possible.
     end
 
     # good
-    def method_missing?(meth, *params, &block)
+    def method_missing(meth, *params, &block)
       if /^find_by_(?<prop>.*)/ =~ meth
         find_by(prop, *params, &block)
       else
@@ -4166,7 +4362,7 @@ resource cleanup when possible.
 <sup>[[link](#prefer-public-send)]</sup>
 
   ```ruby
-  # We have  an ActiveModel Organization that includes concern Activatable
+  # We have an ActiveModel Organization that includes concern Activatable
   module Activatable
     extend ActiveSupport::Concern
 
@@ -4270,6 +4466,15 @@ resource cleanup when possible.
   Code in a functional way, avoiding mutation when that makes sense.
 <sup>[[link](#functional-code)]</sup>
 
+  ```ruby
+  a = []; [1, 2, 3].each { |i| a << i * 2 }   # bad
+  a = [1, 2, 3].map { |i| i * 2 }             # good
+
+  a = {}; [1, 2, 3].each { |i| a[i] = i * 17 }                # bad
+  a = [1, 2, 3].reduce({}) { |h, i| h[i] = i * 17; h }        # good
+  a = [1, 2, 3].each_with_object({}) { |i, h| h[i] = i * 17 } # good
+  ```
+
 * <a name="no-param-mutations"></a>
   Do not mutate parameters unless that is the purpose of the method.
 <sup>[[link](#no-param-mutations)]</sup>
@@ -4322,13 +4527,11 @@ Feel free to open tickets or send pull requests with improvements. Thanks in
 advance for your help!
 
 You can also support the project (and RuboCop) with financial
-contributions via [Gratipay](https://gratipay.com/~bbatsov/).
-
-[![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/~bbatsov/)
+contributions via [Patreon](https://www.patreon.com/bbatsov).
 
 ## How to Contribute?
 
-It's easy, just follow the [contribution guidelines](https://github.com/bbatsov/ruby-style-guide/blob/master/CONTRIBUTING.md).
+It's easy, just follow the [contribution guidelines](https://github.com/rubocop-hq/ruby-style-guide/blob/master/CONTRIBUTING.md).
 
 # License
 
@@ -4347,9 +4550,9 @@ Cheers,<br>
 [Bozhidar](https://twitter.com/bbatsov)
 
 [PEP-8]: https://www.python.org/dev/peps/pep-0008/
-[rails-style-guide]: https://github.com/bbatsov/rails-style-guide
+[rails-style-guide]: https://github.com/rubocop-hq/rails-style-guide
 [pickaxe]: https://pragprog.com/book/ruby4/programming-ruby-1-9-2-0
 [trpl]: http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177
 [Pandoc]: http://pandoc.org/
-[RuboCop]: https://github.com/bbatsov/rubocop
-[rdoc]: http://rdoc.sourceforge.net/doc/
+[RuboCop]: https://github.com/rubocop-hq/rubocop
+[yard]: https://yardoc.org/
