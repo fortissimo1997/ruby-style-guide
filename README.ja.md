@@ -67,8 +67,8 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 
 * [中国語(簡体)](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhCN.md)
 * [中国語(繁体)](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhTW.md)
+* [アラビア語エジプト方言](https://github.com/HassanTC/ruby-style-guide/blob/master/README-EgAr.md)
 * [フランス語](https://github.com/gauthier-delacroix/ruby-style-guide/blob/master/README-frFR.md)
-* [ドイツ語](https://github.com/arbox/de-ruby-style-guide/blob/master/README-deDE.md)
 * [日本語](https://github.com/fortissimo1997/ruby-style-guide/blob/japanese/README.ja.md)
 * [韓国語](https://github.com/dalzony/ruby-style-guide/blob/master/README-koKR.md)
 * [ポルトガル語 (pt-BR)](https://github.com/rubensmabueno/ruby-style-guide/blob/master/README-PT-BR.md)
@@ -214,11 +214,10 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   ```ruby
   sum = 1 + 2
   a, b = 1, 2
-  1 > 2 ? true : false; puts 'Hi'
   class FooError < StandardError; end
   ```
 
-  演算子についてただひとつの例外は、指数演算子です:
+  演算子について、いくつか例外があります。まずは、指数演算子です:
 
   ```ruby
   # 悪い例
@@ -226,6 +225,27 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 
   # 良い例
   e = M * c**2
+  ```
+
+  同様に、有理数のリテラル（rational literals）も例外です:
+
+  ```ruby
+  # 悪い例
+  o_scale = 1 / 48r
+
+  # 良い例
+  o_scale = 1/48r
+  ```
+
+  同様に、safe navigation operator（ぼっち演算子）も例外です:
+  ```ruby
+  # 悪い例
+  foo &. bar
+  foo &.bar
+  foo&. bar
+
+  # 良い例
+  foo&.bar
   ```
 
 * <a name="spaces-braces"></a>
@@ -296,9 +316,11 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
     ```
 
 * <a name="indent-when-to-case"></a>
-  `when`は`case`と同じ深さに揃えましょう。
-  このスタイルは"The Ruby Programming Language"、"Programming Ruby"
-  双方で確立されたものです。
+  `when`は`case`と同じインデントのレベルに揃えましょう。
+  このスタイルは"The Ruby Programming Language"と"Programming Ruby"の
+  双方で確立されたものです。これは`case`及び`switch`ステートメントが
+  ブロックではないという事実によるものです。また、`when`及び`else`キーワードはラベルです。
+  (C言語でコンパイルされた時、`JMP`コールにおいて、文字通り「ラベル」と呼ばれました。
 <sup>[[link](#indent-when-to-case)]</sup>
 
   ```ruby
@@ -403,7 +425,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   end
   ```
 
-* <a name="to-or-more-empty-lines"></a>
+* <a name="two-or-more-empty-lines"></a>
   空行を複数連続して用いてはいけません。
 <sup>[[link](#two-or-more-empty-lines)]</sup>
 
@@ -523,8 +545,8 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   ```
 
   いくつかのRuby本は最初のスタイルを提案していますが、
-  ２つ目の方が、実用的により優れています
-  (そして、おそらくこちらのほうが読みやすいでしょう)。
+  実践的には2つ目の方がより有力とされています。
+  (そして、おそらくこちらのほうが読みやすいでしょう)
 
 * <a name="no-trailing-backslash"></a>
   `\`を用いた行の継続は可能であれば避けましょう。
@@ -536,7 +558,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   result = 1 - \
            2
 
-  # 良い例 (しかしそれでも地獄のように醜い)
+  # 良い例 (ただし、それでも極めて醜い)
   result = 1 \
            - 2
 
@@ -577,8 +599,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
       four
     ```
 
-  双方のスタイルのメリットに関する議論は[こちら](https://github.com/bbatsov/ruby-style-guide/pull/176)
-  で見ることができます。
+  双方のスタイルのメリットに関する議論は[こちら](https://github.com/rubocop-hq/ruby-style-guide/pull/176)で見ることができます。
 
 * <a name="no-double-indent"></a>
   メソッド呼び出しが複数行に及ぶときは、引数は揃えましょう。
@@ -592,7 +613,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
     Mailer.deliver(to: 'bob@example.com', from: 'us@example.com', subject: 'Important message', body: source.text)
   end
 
-  # 悪い例 (インデントが倍)
+  # 悪い例 (二重インデント)
   def send_mail(source)
     Mailer.deliver(
         to: 'bob@example.com',
@@ -609,7 +630,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
                    body: source.text)
   end
 
-  # 良い例 (普通のインデントです)
+  # 良い例 (通常インデント)
   def send_mail(source)
     Mailer.deliver(
       to: 'bob@example.com',
@@ -625,20 +646,20 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 <sup>[[link](#align-multiline-arrays)]</sup>
 
   ```ruby
-  # 悪い例 - インデント１つです
-  menu_item = ["Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam",
-    "Baked beans", "Spam", "Spam", "Spam", "Spam", "Spam"]
+  # 悪い例 - インデント1つ
+  menu_item = %w[Spam Spam Spam Spam Spam Spam Spam Spam
+    Baked beans Spam Spam Spam Spam Spam]
 
   # 良い例
-  menu_item = [
-    "Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam",
-    "Baked beans", "Spam", "Spam", "Spam", "Spam", "Spam"
+  menu_item = %w[
+    Spam Spam Spam Spam Spam Spam Spam Spam
+    Baked beans Spam Spam Spam Spam Spam
   ]
 
   # 良い例
   menu_item =
-    ["Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam", "Spam",
-     "Baked beans", "Spam", "Spam", "Spam", "Spam", "Spam"]
+    %w[Spam Spam Spam Spam Spam Spam Spam Spam
+     Baked beans Spam Spam Spam Spam Spam]
   ```
 
 * <a name="underscores-in-numerics"></a>
@@ -675,10 +696,10 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   num = 1234
   ```
 
-* <a name="rdoc-conventions"></a>
-  APIドキュメントを書くなら、[RDoc][rdoc]とその規約に従いましょう。
+* <a name="api-documentation"></a>
+  APIドキュメントを書くなら、[YARD][yard]とその規約に従いましょう。
   コメント行と`def`の間に空行を入れてはいけません。
-<sup>[[link](#rdoc-conventions)]</sup>
+<sup>[[link](#api-documentation)]</sup>
 
 * <a name="80-character-limits"></a>
   １行は80字までにしましょう。
@@ -700,10 +721,10 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 
   ```ruby
   # 悪い例
-  == begin
+  =begin
   comment line
   another comment line
-  == end
+  =end
 
   # 良い例
   # comment line
@@ -730,9 +751,27 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   SomeModule::SomeClass()
   ```
 
+* <a name="colon-method-definition"></a>
+    `::`を使ってクラスメソッドを定義しません。
+<sup>[[link](#colon-method-definition)]</sup>
+
+  ```ruby
+  # 悪い例
+  class Foo
+    def self::some_method
+    end
+  end
+
+  # 良い例
+  class Foo
+    def self.some_method
+    end
+  end
+  ```
+
 * <a name="method-parens"></a>
   引数があるとき、`def`は括弧と共に使いましょう。
-  引数がない場合は括弧は除きましょう。
+  引数がない場合は括弧は省略しましょう。
 <sup>[[link](#method-parens)]</sup>
 
    ```ruby
@@ -832,6 +871,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
     puts temperance.age
     system 'ls'
     ```
+
 * <a name="optional-arguments"></a>
   オプショナル引数は引数リストの最後に定義しましょう。
   引数リストの先頭にオプショナル引数があるメソッドを呼んだ場合、
