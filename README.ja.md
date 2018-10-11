@@ -316,11 +316,12 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
     ```
 
 * <a name="indent-when-to-case"></a>
-  `when`は`case`と同じインデントのレベルに揃えましょう。
-  このスタイルは"The Ruby Programming Language"と"Programming Ruby"の
-  双方で確立されたものです。これは`case`及び`switch`ステートメントが
-  ブロックではないという事実によるものです。また、`when`及び`else`キーワードはラベルです。
-  (C言語でコンパイルされた時、`JMP`コールにおいて、文字通り「ラベル」と呼ばれました。
+  `when`は`case`と同じ深さに揃えましょう。
+  このスタイルは"The Ruby Programming Language"と"Programming Ruby"の双方で確立されたものです。
+  `case`及び`switch`をインデントしないのは、
+  もともとこれらはブロックにならないという事実から来ています。
+  また、`when`及び`else`キーワードはラベルです。
+  （C言語においては、これらは`JMP`命令のためのラベルにすぎません）
 <sup>[[link](#indent-when-to-case)]</sup>
 
   ```ruby
@@ -613,7 +614,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
     Mailer.deliver(to: 'bob@example.com', from: 'us@example.com', subject: 'Important message', body: source.text)
   end
 
-  # 悪い例 (二重インデント)
+  # 悪い例 (インデントが倍)
   def send_mail(source)
     Mailer.deliver(
         to: 'bob@example.com',
@@ -630,7 +631,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
                    body: source.text)
   end
 
-  # 良い例 (通常インデント)
+  # 良い例 (通常のインデントです)
   def send_mail(source)
     Mailer.deliver(
       to: 'bob@example.com',
@@ -646,7 +647,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 <sup>[[link](#align-multiline-arrays)]</sup>
 
   ```ruby
-  # 悪い例 - インデント1つ
+  # 悪い例 - インデント1つです
   menu_item = %w[Spam Spam Spam Spam Spam Spam Spam Spam
     Baked beans Spam Spam Spam Spam Spam]
 
@@ -752,7 +753,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   ```
 
 * <a name="colon-method-definition"></a>
-    `::`を使ってクラスメソッドを定義しません。
+    クラスメソッドを定義する目的で`::`を使ってはいけません。
 <sup>[[link](#colon-method-definition)]</sup>
 
   ```ruby
@@ -897,6 +898,46 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   some_method('w', 'x', 'y') # => 'y, 2, w, x'
   some_method('w', 'x', 'y', 'z') # => 'y, z, w, x'
   ```
+* <a name="boolean-keyword-arguments"></a>
+  メソッドにbooleanを渡す時にはキーワード引数を使いましょう。
+
+  ```Ruby
+  # 悪い例
+  def some_method(bar = false)
+    puts bar
+  end
+
+  # 悪い例 - キーワード引数が導入される以前によく見られたハックです
+  def some_method(options = {})
+    bar = options.fetch(:bar, false)
+    puts bar
+  end
+
+  # 良い例
+  def some_method(bar: false)
+    puts bar
+  end
+
+  some_method            # => false
+  some_method(bar: true) # => true
+  ```
+
+* <a name="keyword-arguments-vs-option-hashes"></a>
+  オプショナル引数のハッシュではなくキーワード引数を使いましょう。
+
+  ```Ruby
+  # 悪い例
+  def some_method(options = {})
+    bar = options.fetch(:bar, false)
+    puts bar
+  end
+
+  # 良い例
+  def some_method(bar: false)
+    puts bar
+  end
+  ```
+
 * <a name="parallel-assignment"></a>
   変数を定義するために多重代入を使うのは避けましょう。
   多重代入を使っていいのはメソッド戻り値を変数に代入する時、
@@ -1153,18 +1194,18 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   ok = got_needed_arguments and arguments_are_valid
 
   # 制御構文
-  document.save or fail(RuntimeError, "Failed to save document!")
+  document.save or raise("Failed to save document!")
 
   # 良い例
   # boolean式
   ok = got_needed_arguments && arguments_are_valid
 
   # 制御構文
-  fail(RuntimeError, "Failed to save document!") unless document.save
+  raise("Failed to save document!") unless document.save
 
   # ok
   # 制御構文
-  document.save || fail(RuntimeError, "Failed to save document!")
+  document.save || raise("Failed to save document!")
   ```
 
 * <a name="no-multiline-ternary"></a>
@@ -1652,7 +1693,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   # 良い例
   something.is_a?(Array)
   (1..100).include?(7)
-  some_string =~ /something/
+  some_string.match?(/something/)
   ```
 
 * <a name="eql"></a>
@@ -2153,7 +2194,6 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   :someSymbol
 
   someVar = 5
-  var_10  = 10
 
   def someMethod
     # some code
@@ -2167,7 +2207,6 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   :some_symbol
 
   some_var = 5
-  var10    = 10
 
   def some_method
     # some code
@@ -2184,6 +2223,8 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 
   some_var_1 = 1
 
+  var_10  = 10
+
   def some_method_1
     # some code
   end
@@ -2192,6 +2233,8 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   :some_sym1
 
   some_var1 = 1
+
+  var10    = 10
 
   def some_method1
     # some code
@@ -2357,12 +2400,45 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   ```
 
 * <a name="other-arg"></a>
-  二項演算子を定義するとき、引数名は`other`を用いましょう
-  (`<<`と`[]`は意味が違ってくるので、このルールの例外です)。
+  二項演算子や演算子風のメソッドを定義するときは、
+  演算子の「対称性」を明確にするために引数名は`other`を用いましょう。
+  ここでいう対称性とは、演算子の両辺が典型的には同じ、
+  またはcoerce可能な型であるという意味です。
 <sup>[[link](#other-arg)]</sup>
 
-  ```ruby
+  * 対称性のある演算子や演算子風のメソッド（引数名を`other`とすべきもの）: `+`, `-`, `*`, `/`, `%`, `**`, `==`,
+    `>`, `<`, `|`, `&`, `^`, `eql?`, `equal?`;
+  * 対称性のない演算子（引数名を`other`とすべきではない）: `<<`, `[]` （コレクションとその要素の関係にある演算子）,
+    `===` （パターンやマッチの関係性）;
+
+  このルールは演算子の両辺が同じセマンティクスを持っている場合 **のみ** に用いることに注意しましょう。
+  典型的な例外としては、Ruby本体の`Array#*(int)`が挙げられます。
+
+   ```ruby
+  # 良い例
   def +(other)
+    # body omitted
+  end
+
+  # 悪い例
+  def <<(other)
+    @internal << other
+  end
+
+  # 良い例
+  def <<(item)
+    @internal << item
+  end
+
+  # 悪い例
+  # Returns some string multiplied `other` times
+  def *(other)
+    # body omitted
+  end
+
+  # 良い例
+  # Returns some string multiplied `num` times
+  def *(num)
     # body omitted
   end
   ```
@@ -2481,33 +2557,40 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 ### マジックコメント
 
 * <a name="magic-comments-first"></a>
-  マジックコメントは、全てのコメントとコードよりも上に置きましょう。
-  シバン(Shebang)が必要な場合にのみ、シバンの下にマジックコメントを移動する必要があります。
+  マジックコメントは、全てのコメントとコードよりも上に置きましょう(Shebangは例外で、それに関しては次の項目を参照のこと)。
 <sup>[[link](#magic-comments-first)]</sup>
 
   ```ruby
-  # 良い例
-  # frozen_string_literal: true
+  # 悪い例
   # Some documentation about Person
+
+  # frozen_string_literal: true
   class Person
   end
 
-  # 悪い例
-  # Some documentation about Person
+  # 良い例
   # frozen_string_literal: true
+
+  # Some documentation about Person
   class Person
   end
   ```
 
-  ```ruby
-  # 良い例
-  #!/usr/bin/env ruby
-  # frozen_string_literal: true
-  App.parse(ARGV)
+* <a name="below-shebang"></a>
+  ファイルにShegangが存在する場合は、マジックコメントはその下に置きましょう。
+<sup>[[link](#below-shebang)]</sup>
 
+  ```ruby
   # 悪い例
   # frozen_string_literal: true
   #!/usr/bin/env ruby
+
+  App.parse(ARGV)
+
+  # 良い例
+  #!/usr/bin/env ruby
+  # frozen_string_literal: true
+
   App.parse(ARGV)
   ```
 
@@ -2516,12 +2599,12 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 <sup>[[link](#one-magic-comment-per-line)]</sup>
 
   ```ruby
+  # 悪い例
+  # -*- frozen_string_literal: true; encoding: ascii-8bit -*-
+
   # 良い例
   # frozen_string_literal: true
   # encoding: ascii-8bit
-
-  # 悪い例
-  # -*- frozen_string_literal: true; encoding: ascii-8bit -*-
   ```
 
 * <a name="separate-magic-comments-from-code"></a>
@@ -2529,16 +2612,16 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 <sup>[[link](#separate-magic-comments-from-code)]</sup>
 
   ```ruby
-  # 良い例
+  # 悪い例
   # frozen_string_literal: true
-
   # Some documentation for Person
   class Person
     # Some code
   end
 
-  # 悪い例
+  # 良い例
   # frozen_string_literal: true
+
   # Some documentation for Person
   class Person
     # Some code
@@ -2656,6 +2739,43 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   end
   ```
 
+* <a name="namespace-definition"></a>
+  名前空間の中にクラスやモジュールを定義したり再定義したりする場合、
+  その名前空間を明示的にネストして記述しましょう。
+  Rubyの[レキシカルスコープ](https://cirw.in/blog/constant-lookup.html)
+  は定義された場所のモジュールのネスティングに依存しているため、
+  名前解決演算子を用いてしまうと、定数参照が意図しない振る舞いをすることがあります。
+  <sup>[[link](#namespace-definition)]</sup>
+
+  ```Ruby
+  module Utilities
+    class Queue
+    end
+  end
+
+  # 悪い例
+  class Utilities::Store
+    Module.nesting # => [Utilities::Store]
+
+    def initialize
+      # nestingにUtilitiesを含まないため、
+      # この参照はトップレベルの ::Queueを参照します。
+      @queue = Queue.new
+    end
+  end
+
+  # 良い例
+  module Utilities
+    class WaitingList
+      Module.nesting # => [Utilities::WaitingList, Utilities]
+
+      def initialize
+        @queue = Queue.new # Utilities::Queue を参照します
+      end
+    end
+  end
+  ```
+
 * <a name="modules-vs-classes"></a>
   クラスメソッドしかないクラスよりモジュールを使いましょう。
   クラスはインスタンスを生成することに意味がある時にのみ使われるべきです。
@@ -2746,7 +2866,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
     end
 
     def to_s
-      "#{@first_name} #{@last_name}"
+      "#{first_name} #{last_name}"
     end
   end
   ```
@@ -3630,7 +3750,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   timestamp.is_a? Integer
   ```
 
-  * <a name="random-numbers"></a>
+* <a name="random-numbers"></a>
   乱数を生成する場合は、整数とオフセットの代わりに範囲リテラルを使用しましょう。
   意図が明確であるためです。サイコロの役割をシミュレートすることを想像してください:
 <sup>[[link](#random-numbers)]</sup>
@@ -3676,8 +3796,12 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
     # 悪い例
     name = "Bozhidar"
 
+    name = 'De\'Andre'
+
     # 良い例
     name = 'Bozhidar'
+
+    name = "De'Andre"
     ```
 
   * **(Option B)** 文字列中に`"`を含んでいたり、エスケープ文字を抑えたいときでない限り、
@@ -3687,8 +3811,12 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
     # 悪い例
     name = 'Bozhidar'
 
+    sarcasm = "I \"like\" it."
+
     # 良い例
     name = "Bozhidar"
+
+    sarcasm = 'I "like" it.'
     ```
 
   このガイド内の文字列リテラル表記は、
@@ -3819,28 +3947,57 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 
   ```ruby
   # 悪い例 - Powerpack の String#strip_margin を使用しています。
-  code = <<-END.strip_margin('|')
+  code = <<-RUBY.strip_margin('|')
     |def test
     |  some_method
     |  other_method
     |end
-  END
+  RUBY
 
   # こちらも悪い例
-  code = <<-END
+  code = <<-RUBY
   def test
     some_method
     other_method
   end
-  END
+  RUBY
 
   # 良い例
-  code = <<~END
+  code = <<~RUBY
     def test
       some_method
       other_method
     end
+  RUBY
+  ```
+
+* <a name="heredoc-delimiters"></a>
+
+  ヒアドキュメントのデリミタは説明的な名前にしましょう。
+  デリミタはヒアドキュメントの内容に関して追加の情報になりますし、
+  エディタによっては適切なデリミタを使うことでヒアドキュメント内のコードをハイライトしてくれるかもしれません。
+<sup>[[link](#heredoc-delimiters)]</sup>
+
+  ```ruby
+  # 悪い例
+  code = <<~END
+    def foo
+      bar
+    end
   END
+
+  # 良い例
+  code = <<~RUBY
+    def foo
+      bar
+    end
+  RUBY
+
+  # 良い例
+  code = <<~SUMMARY
+    著名なSF作家アーサー C. クラークの短編を独創的に解釈したこの作品では、
+    巨大な黒色の構造物が過去、そして未来とのつながりを指し示す。
+  SUMMARY
   ```
 
 ## 日時
@@ -4014,7 +4171,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 
 * <a name="percent-q"></a>
   文字列に`'`と`"`双方が含まれない限り、
-  `%()`や、それと同等の`%q`の使用は避けましょう。
+  `%()`や、それと同等の`%q()`の使用は避けましょう。
   通常の文字列リテラルのほうがより読みやすいので、
   エスケープが大量に必要出ない限りは、そちらを使いましょう。
 <sup>[[link](#percent-q)]</sup>
@@ -4032,7 +4189,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   ```
 
 * <a name="percent-r"></a>
-  '/'が１つ *以上の* 正規表現に限り、`%r`を使いましょう。
+  `'/'`が１つ *以上の* 正規表現に限り、`%r`を使いましょう。
 <sup>[[link](#percent-r)]</sup>
 
   ```ruby
@@ -4138,12 +4295,12 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
       class_eval <<-EOT, __FILE__, __LINE__ + 1
         def #{unsafe_method}(*params, &block)       # def capitalize(*params, &block)
           to_str.#{unsafe_method}(*params, &block)  #   to_str.capitalize(*params, &block)
-        end                                       # end
+        end                                         # end
 
         def #{unsafe_method}!(*params)              # def capitalize!(*params)
-          @dirty = true                           #   @dirty = true
-          super                                   #   super
-        end                                       # end
+          @dirty = true                             #   @dirty = true
+          super                                     #   super
+        end                                         # end
       EOT
     end
   end
@@ -4166,7 +4323,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
 
   ```ruby
   # 悪い例
-  def method_missing?(meth, *params, &block)
+  def method_missing(meth, *params, &block)
     if /^find_by_(?<prop>.*)/ =~ meth
       # ... lots of code to do a find_by
     else
@@ -4175,7 +4332,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   end
 
   # 良い例
-  def method_missing?(meth, *args, &block)
+  def method_missing(meth, *args, &block)
     if /^find_by_(?<prop>.*)/ =~ meth
       find_by(prop, *args, &block)
     else
@@ -4295,6 +4452,16 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   破壊的変更をしなくても済むなら、できるだけ関数的プログラミング手法を使いましょう。
 <sup>[[link](#functional-code)]</sup>
 
+
+  ```ruby
+  a = []; [1, 2, 3].each { |i| a << i * 2 }   # 悪い例
+  a = [1, 2, 3].map { |i| i * 2 }             # 良い例
+
+  a = {}; [1, 2, 3].each { |i| a[i] = i * 17 }                # 悪い例
+  a = [1, 2, 3].reduce({}) { |h, i| h[i] = i * 17; h }        # 良い例
+  a = [1, 2, 3].each_with_object({}) { |i, h| h[i] = i * 17 } # 良い例
+  ```
+
 * <a name="no-param-mutations"></a>
   それがメソッドの目的でない限り、引数に破壊的変更をするのはやめましょう。
 <sup>[[link](#no-param-mutations)]</sup>
@@ -4342,13 +4509,11 @@ Rubyのコードスタイルに興味のある全ての人と共に取り組む�
 あなたの手助けに予め感謝します！
 
 また、このプロジェクト(とRuboCop)への金銭的な貢献は、
-[Gratipay](https://gratipay.com/~bbatsov/)経由で行うことができます。
-
-[![Gratipay経由での支援](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/~bbatsov/)
+[Patreon](https://www.patreon.com/bbatsov)経由で行うことができます。
 
 ## 貢献するには
 
-簡単です！ [contribution guidelines](https://github.com/bbatsov/ruby-style-guide/blob/master/CONTRIBUTING.md)を読んでください！
+簡単です！ [contribution guidelines](https://github.com/rubocop-hq/ruby-style-guide/blob/master/CONTRIBUTING.md)を読んでください！
 
 # ライセンス
 
@@ -4367,9 +4532,9 @@ Rubyのコードスタイルに興味のある全ての人と共に取り組む�
 [Bozhidar](https://twitter.com/bbatsov)
 
 [PEP-8]: https://www.python.org/dev/peps/pep-0008/
-[rails-style-guide]: https://github.com/bbatsov/rails-style-guide
+[rails-style-guide]: https://github.com/rubocop-hq/rails-style-guide
 [pickaxe]: https://pragprog.com/book/ruby4/programming-ruby-1-9-2-0
 [trpl]: http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177
 [Pandoc]: http://pandoc.org/
-[RuboCop]: https://github.com/bbatsov/rubocop
-[rdoc]: http://rdoc.sourceforge.net/doc/
+[RuboCop]: https://github.com/rubocop-hq/rubocop
+[yard]: https://yardoc.org/
