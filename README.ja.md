@@ -2577,7 +2577,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
   ```
 
 * <a name="below-shebang"></a>
-  ファイルにShegangが存在する場合は、マジックコメントはその下に置きましょう。
+  ファイルにShebangが存在する場合は、マジックコメントはその下に置きましょう。
 <sup>[[link](#below-shebang)]</sup>
 
   ```ruby
