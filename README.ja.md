@@ -1382,6 +1382,7 @@ Rubyコミュニティ内でもスタイルについての統一見解が存在�
     do_something
   end
 
+  # 良い例
   loop do
     do_something
   end
